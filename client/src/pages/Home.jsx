@@ -7,8 +7,8 @@ import Suggestions from '../components/Suggestions';
 
 const Home = () => {
     return (
-        <Flex flexDir={"row"}>
-            <Flex flexDir={"column"} w={["100%", "100%", "100%", "50%", "50%"]} ml={["0", "0", "50px", "100px", "100px"]} mr={["0", "0", "50px", "50px", "50px"]}>
+        <Flex flexDir={"row"} >
+            <Flex flexDir={"column"} w={["100%", "100%", "100%", "50%", "50%"]} ml={["0", "0", "0", "100px", "100px"]} mr={["0", "0", "50px", "50px", "50px"]}>
                 <Story />
                 <PostSection />
             </Flex>

@@ -4,7 +4,7 @@ import SinglePost from './SinglePost'
 
 const PostSection = () => {
     return (
-        <Box w="100%" 
+        <Box w="100%"
             border="1px solid green"
         >
             <SinglePost />

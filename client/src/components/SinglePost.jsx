@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Flex, HStack, IconButton, Image, Input, Text, Textarea } from '@chakra-ui/react'
+import { Box, Container, Divider, Flex, HStack, IconButton, Image, Text, Textarea } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { BiDotsHorizontalRounded } from "react-icons/bi"
 import { TbMessageCircle2, } from "react-icons/tb"
@@ -26,7 +26,7 @@ const SinglePost = () => {
             {/* Likes comment share save  */}
             <Flex flexDir={"row"} justifyContent={"space-between"} w="100%" >
                 <HStack spacing="2" ml={[2, 2, 0, 0, 0]}  >
-                    <IconButton fontSize={["22px", "22px", "28px", "28px", "28px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color={liked ? "#e65d37" : "#363333"} onClick={handleLikes} icon={liked ? <BsSuitHeartFill /> : <BsSuitHeart />} />
+                    <IconButton fontSize={["22px", "22px", "28px", "28px", "28px"]} background={"none"} _hover={{ background: "none" }} color={liked ? "#e65d37" : "#363333"} onClick={handleLikes} icon={liked ? <BsSuitHeartFill /> : <BsSuitHeart />} />
                     <IconButton fontSize={["22px", "22px", "28px", "28px", "28px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="#363333" icon={<TbMessageCircle2 />} />
                     <IconButton fontSize={["22px", "22px", "28px", "28px", "28px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="#363333" icon={<SlPaperPlane />} />
                 </HStack>

@@ -11,6 +11,7 @@ import { RiMessengerLine } from "react-icons/ri"
 import { RxHamburgerMenu } from "react-icons/rx"
 import Navitem from './Navitem'
 import ProfileNav from './ProfileNav'
+import CreateNavitem from './CreateNavitem'
 const Sidebar = () => {
     const [navSize, setNavSize] = useState("large")
     const togglemenu = () => {
@@ -43,7 +44,7 @@ const Sidebar = () => {
                 <Navitem navSize={navSize} icon={TfiVideoClapper} title="Reels" desc="See Top Videos " />
                 <Navitem navSize={navSize} icon={RiMessengerLine} title="Messages" desc="See Your Messages" />
                 <Navitem navSize={navSize} icon={SlHeart} title="Notifications" desc="See Your Notifcations" />
-                <Navitem navSize={navSize} icon={CgAddR} title="Create" desc="Upload Your Post's " />
+                <CreateNavitem navSize={navSize} icon={CgAddR} title="Create" desc="Upload Your Post's " />
                 <ProfileNav navSize={navSize} title="Profile" desc="See Your Profile" />
                 <Navitem navSize={navSize} icon={RxHamburgerMenu} title="More" desc="Setting Your Account" />
             </Flex>
