@@ -1,0 +1,98 @@
+.mobile {
+    width: 30%;
+    height: 97vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-right: 30px;
+}
+.phone {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    height: 95%;
+    background-color:#0b0c0c;
+    border-radius: 30px;
+    padding: 10px;
+    
+}
+.phone-mirror {
+    position: relative;
+    width: 100%;
+    height: 98%;
+    background-color:#0b0c0c;
+    border-radius: 30px;
+    overflow: hidden;
+}
+.topWrapper {
+    position: absolute;
+    width: 127px;
+    height: 19px;
+    float: left;
+    left: 25%;
+    background-color: #0b0c0c;
+    border-radius: 0 0 12px 12px;
+    z-index: 100;
+}
+.line-rec {
+    position: relative;
+    width: 60px;
+    height: 6px;
+    margin: 0px auto 0 auto;
+    float: left;
+    left: 20%;
+    top: 4px;
+    background-color: rgb(83, 83, 82);
+    border-radius: 5px;
+    border: 1px solid rgb(214, 214, 214);
+}
+.camera {
+    position: relative;
+    float: left;
+    margin-right: 8px;
+    left: 18%;
+    width: 11px;
+    height: 11px;
+    top: 1px;
+    background-color: rgb(83, 83, 82);
+    border-radius: 30px;
+    border: 1px solid rgb(214, 214, 214);
+}
+.buttons {
+    background-color: black;
+    width: 100%;
+    height: 30px;
+    border-radius: 0 0 45px 45px;
+}
+.image_login{
+    border-radius: 25px;
+    z-index: 1;
+}
+
+@media (max-width: 480px) {
+    .mobile {
+        display: none;
+    }
+}
+  
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+    .mobile {
+        display: none;
+    }
+}
+  
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1023px){
+    .mobile {
+        display: none;
+    }
+}
+@media (min-width: 1024px) and (max-width: 1279px){
+    .mobile {
+        width: 40%;
+    }
+}
