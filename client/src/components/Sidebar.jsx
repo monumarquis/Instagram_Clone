@@ -12,6 +12,7 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import Navitem from './Navitem'
 import ProfileNav from './ProfileNav'
 import CreateNavitem from './CreateNavitem'
+import SearchNavitem from './SearchNavitem'
 const Sidebar = () => {
     const [navSize, setNavSize] = useState("large")
     const togglemenu = () => {
@@ -24,6 +25,7 @@ const Sidebar = () => {
             w={['80px', "80px", "80px", width, width]}
             borderRadius={navSize === "small" ? "15px" : "0"}
             flexDirection={"column"} justifyContent="space-between"
+            zIndex="1000"
         >
             {/* Navigaton Part of Sidebar */}
             <Flex
@@ -39,7 +41,7 @@ const Sidebar = () => {
                     <Image w={"110px"} display={navSize === "small" ? "none" : "initial"} ml="5" src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674468345/Instagaram_Media/felbpvh9zrjnttdondsg.png" alt="Instagaram" />
                 </Flex>
                 <Navitem navSize={navSize} icon={MdHomeFilled} title="Home" desc="See All Friend's Post " />
-                <Navitem navSize={navSize} icon={BsSearch} title="Search" desc="Search For User's " />
+                <SearchNavitem setNavSize={setNavSize} navSize={navSize} icon={BsSearch} title="Search" desc="Search For User's " />
                 <Navitem navSize={navSize} icon={SlCompass} title="Explore" desc="Explore new Content" />
                 <Navitem navSize={navSize} icon={TfiVideoClapper} title="Reels" desc="See Top Videos " />
                 <Navitem navSize={navSize} icon={RiMessengerLine} title="Messages" desc="See Your Messages" />

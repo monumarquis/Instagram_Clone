@@ -2,7 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import "./App.css";
 import AllRoutes from "./Routes/AllRoutes";
 import Navbar from "./pages/Navbar";
-// import ImageUpload from "./components/ImageUpload.jsx"
+import ImageUpload from "./components/ImageUpload.jsx"
 // import Login from "./pages/Login";
 // import Signup from "./pages/Signup";
 function App() {
@@ -12,6 +12,7 @@ function App() {
       {/* <Login /> */}
       <Navbar />
       <AllRoutes />
+      {/* <ImageUpload /> */}
     </Flex>
   );
 }

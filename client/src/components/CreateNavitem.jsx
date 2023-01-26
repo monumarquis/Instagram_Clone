@@ -7,22 +7,72 @@ import {
     ModalBody,
     ModalCloseButton,
     useDisclosure,
+    Image,
+    IconButton,
+    VStack,
+    HStack,
+    Textarea,
+    InputGroup,
+    InputRightElement,
     Input,
+    Divider,
 } from '@chakra-ui/react'
 import { FileUploader } from "react-drag-drop-files";
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import NavHoverItem from './NavHoverItem'
+import { AiOutlineArrowLeft } from "react-icons/ai"
+import { FaPhotoVideo } from "react-icons/fa"
+import { SlLocationPin } from "react-icons/sl"
 const fileTypes = ["JPEG", "PNG", "GIF"];
+
 const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
+
     const [hover, sethover] = useState(false)
+    const [previewSource, setpreviewSource] = useState("");
+    const [location, setLocation] = useState("");
+    const [caption, setCaption] = useState("");
+    const initialRef = React.useRef(null)
+    const finalRef = React.useRef(null)
+    const [removefile, steremovefile] = useState(false);
+    const [uploadImg, setuploadImg] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const width = navSize === "small" ? "none" : "flex"
-    const [file, setFile] = useState(null);
-    console.log(file);
-    const handleChange = (file) => {
-        setFile(file);
+
+    const handleInput = (file) => {
+        // console.log(file[0], 'input,details');
+        steremovefile(false)
+        setuploadImg(false)
+        previewFile(file[0]);
     };
+    //  save details on backend
+    const handleUploadImage = async () => {
+        onClose()
+        steremovefile(true)
+        setuploadImg(false)
+        setpreviewSource("")
+        setCaption("")
+        setLocation("")
+        console.log({ location, caption });
+    }
+
+    const handleBack = () => {
+        steremovefile(true)
+        setuploadImg(false)
+        setpreviewSource("")
+    }
+
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            setpreviewSource(reader.result);
+        };
+    };
+
+    console.log(previewSource, "base64Encodeimage");
+
+
     return (
         <Flex
             mt="30"
@@ -74,24 +124,61 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
                 isCentered
                 onClose={onClose}
                 isOpen={isOpen}
+                initialFocusRef={initialRef}
+                finalFocusRef={finalRef}
                 motionPreset='slideInBottom'
+                size={uploadImg ? "xl" : "md"}
+                scrollBehavior={uploadImg && 'inside'}
             >
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>
-                        <Text textAlign={"center"} >Create New Post</Text>
+                    <ModalHeader borderBottom={"1px solid gray"} mb="30" >
+                        <Flex justifyContent={"space-between"} flexDir={"row"} mt="10" alignContent={"center"} >
+                            {previewSource && <IconButton onClick={handleBack} textAlign={"left"} fontSize={["22px", "22px", "28px", "28px", "28px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="black" icon={<AiOutlineArrowLeft />} />}
+                            {previewSource && !uploadImg && <Text cursor={"pointer"} fontSize={'12'} onClick={() => { setuploadImg(true) }} color="blue" >Next</Text>}
+                            {uploadImg && <Text cursor={"pointer"} fontSize={'12'} onClick={handleUploadImage} color="blue" >Share</Text>}
+                        </Flex>
+                        <Text textAlign={"center"} >{previewSource ? "Review Your Post" : "Create New Post"}</Text>
+
                     </ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>
-                        <FileUploader
+                    <ModalBody py={!previewSource && "20"}  >
+                        {!previewSource && <IconButton mb="10" mt="10" ml="36%" fontSize={["92px", "92px", "98px", "98px", "118px"]} background={"none"} _hover={{ background: "none", }} color="#414241" icon={<FaPhotoVideo />} />}
+                        {!previewSource && <Text fontSize={"17"} fontWeight={"600"} mb="10" textAlign={"center"} >Drag photos and videos here</Text>}
+
+                        {!previewSource && <FileUploader
                             multiple={true}
-                            handleChange={handleChange}
+                            handleChange={handleInput}
+                            file={removefile && "null"}
+                            maxSize="100"
                             name="file"
                             label="Select From Computer"
-                            hoverTitle="Drop Here "
+                            hoverTitle="Drop Here"
                             classes="Drag_Input"
                             types={fileTypes}
-                        />
+                        />}
+                        {previewSource && !uploadImg && <Image w="100%" h="100%" src={previewSource} alt="upload" />}
+                       
+                        {uploadImg &&
+                            <Flex flexDir={"row"} w="100%" >
+                                <Image w="50%" h="100%" src={previewSource} alt="upload" />
+                                <VStack spacing="5" w="400px" border={"1px solid gray"} pl="3" pt="3" >
+                                    <HStack spacing="5" w="100%" >
+                                        <Image w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
+                                        <Text fontWeight={"500"} fontSize={13} >User Name</Text>
+                                    </HStack>
+
+                                    <Textarea ref={initialRef} w="100%" variant='unstyled' placeholder='Write a caption...' value={caption} onChange={({ target }) => setCaption(target.value)} _placeholder={{ color: "#a6a39c", fontSize: 16 }} />
+                                    <Divider w="100%" />
+                                    <InputGroup mt="-5">
+
+                                        <Input variant='flushed' placeholder='Add location' value={location} onChange={({ target }) => setLocation(target.value)} />
+                                        <InputRightElement children={<SlLocationPin color='gray.200' />} />
+                                    </InputGroup>
+                                </VStack>
+
+                            </Flex>
+                        }
                     </ModalBody>
                     <ModalFooter>
 
