@@ -8,11 +8,11 @@
     width: 100%;
     opacity: 0;
     transition: .5s ease;
-    background-color: rgb(41, 39, 39);
+    background-color: rgba(41, 39, 39, 0.644);
   }
   
   .post:hover .overlay {
-    opacity: 0.6;
+    opacity: 1;
   }
   .post{
     position: relative;
@@ -28,3 +28,19 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
+
+  .scroll-hide{
+  overflow: auto;
+  overflow-y: scroll;
+  /* this will hide the scrollbar in mozilla based browsers */
+  scrollbar-width: none;
+  /* this will hide the scrollbar in internet explorers */
+  -ms-overflow-style: none;
+}
+
+/* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
+.scroll-hide::-webkit-scrollbar { 
+  width: 0 !important;
+  height: 0;
+  display: none; 
+}
