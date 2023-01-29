@@ -1,8 +1,13 @@
-import { Box, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import SuggestionAvatar from "./SuggestionAvatar";
+import { useDispatch } from "react-redux";
+import { LogOut } from "../redux/auth/auth.actions";
+import { useNavigate } from "react-router-dom";
 
 const Suggestions = () => {
+  const dispatch = useDispatch()
+  const nav = useNavigate()
   return (
     <Box
       w="30%"
@@ -56,6 +61,10 @@ const Suggestions = () => {
       <Text fontWeight="500" color="#545151" fontSize={"11"}>
         © 2023 INSTAGRAM FROM MONU
       </Text>
+      <Button onClick={()=>{
+        dispatch(LogOut())
+        nav('/login')
+      }} >Logout</Button>
     </Box>
   );
 };

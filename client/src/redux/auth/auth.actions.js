@@ -4,11 +4,12 @@ import Swal from 'sweetalert2';
 import { LOGIN, LOGOUT } from "./auth.types";
 export const LogIn = (creds) => async (dispatch) => {
   try{
-    const { data } = await axios.post(`https://mock-13-nem.onrender.com/users/login`,creds);
+    const { data } = await axios.post(`http://localhost:8001/users/login`,creds);
     Swal.fire({
       icon: 'success',
       title:data.message
     })
+    
     console.log(data);
     return dispatch({
       type: LOGIN,

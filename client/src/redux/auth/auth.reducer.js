@@ -1,10 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { LOGIN, LOGOUT } from "./auth.types";
 
 let token = localStorage.getItem("token")
 const initState = {
  isAuth:!!token,
  token,
- role:""
+ userId:""
 };
 export const authReducer = (
   state = initState,
@@ -13,11 +14,12 @@ export const authReducer = (
   switch (type) {
     case LOGIN: {
       localStorage.setItem("token",payload.token)
+
       return {
         ...state,
         isAuth:true,
         token:payload.token,
-        role:payload.role
+        userId:payload.userId
       };
     }
     case LOGOUT: {
@@ -26,7 +28,7 @@ export const authReducer = (
           ...state,
           isAuth:false,
           token:"",
-          role:""
+          userId:""
         };
       }
     
