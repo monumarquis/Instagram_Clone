@@ -1,5 +1,5 @@
 import { Flex, IconButton, Image } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FiMenu } from "react-icons/fi"
 import { MdHomeFilled } from "react-icons/md"
 import { BsSearch, BsInstagram } from "react-icons/bs"
@@ -15,17 +15,21 @@ import CreateNavitem from './CreateNavitem'
 import SearchNavitem from './SearchNavitem'
 const Sidebar = () => {
     const [navSize, setNavSize] = useState("large")
+    
+   
     const togglemenu = () => {
         if (navSize === "small") setNavSize("large")
         else setNavSize("small")
     }
     const width = navSize === "small" ? "80px" : "260px"
+    
     return (
         <Flex pos="fixed" top="1px" left="0" h="110vh" borderRight={"1px solid #999790"}
             w={['80px', "80px", "80px", width, width]}
             borderRadius={navSize === "small" ? "15px" : "0"}
             flexDirection={"column"} justifyContent="space-between"
             zIndex="1000"
+            backgroundColor={"#fff"}
         >
             {/* Navigaton Part of Sidebar */}
             <Flex
@@ -40,14 +44,14 @@ const Sidebar = () => {
                     <IconButton pl="4" background="none" color="black" _hover={{ background: "none" }} icon={<FiMenu />} onClick={togglemenu} />
                     <Image w={"110px"} display={navSize === "small" ? "none" : "initial"} ml="5" src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674468345/Instagaram_Media/felbpvh9zrjnttdondsg.png" alt="Instagaram" />
                 </Flex>
-                <Navitem navSize={navSize} icon={MdHomeFilled} title="Home" desc="See All Friend's Post " />
+                <Navitem navSize={navSize} route={"/"} icon={MdHomeFilled} title="Home" desc="See All Friend's Post " />
                 <SearchNavitem setNavSize={setNavSize} navSize={navSize} icon={BsSearch} title="Search" desc="Search For User's " />
-                <Navitem navSize={navSize} icon={SlCompass} title="Explore" desc="Explore new Content" />
-                <Navitem navSize={navSize} icon={TfiVideoClapper} title="Reels" desc="See Top Videos " />
-                <Navitem navSize={navSize} icon={RiMessengerLine} title="Messages" desc="See Your Messages" />
-                <Navitem navSize={navSize} icon={SlHeart} title="Notifications" desc="See Your Notifcations" />
+                <Navitem navSize={navSize} route={"/explore"} icon={SlCompass} title="Explore" desc="Explore new Content" />
+                <Navitem navSize={navSize} route={"/reels"} icon={TfiVideoClapper} title="Reels" desc="See Top Videos " />
+                <Navitem navSize={navSize} route={"/messages"} icon={RiMessengerLine} title="Messages" desc="See Your Messages" />
+                <Navitem navSize={navSize} route={"/notification"} icon={SlHeart} title="Notifications" desc="See Your Notifcations" />
                 <CreateNavitem navSize={navSize} icon={CgAddR} title="Create" desc="Upload Your Post's " />
-                <ProfileNav navSize={navSize} title="Profile" desc="See Your Profile" />
+                <ProfileNav navSize={navSize} route={"/profile"} title="Profile" desc="See Your Profile" />
                 <Navitem navSize={navSize} icon={RxHamburgerMenu} title="More" desc="Setting Your Account" />
             </Flex>
 

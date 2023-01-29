@@ -1,8 +1,9 @@
 import { Flex, Text, Link, Menu, MenuButton, Avatar } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import NavHoverItem from './NavHoverItem'
+import { NavLink } from 'react-router-dom'
 
-const ProfileNav = ({ navSize, title, active, desc }) => {
+const ProfileNav = ({ navSize, title, active, desc, route }) => {
     const [hover, sethover] = useState(false)
     const width = navSize === "small" ? "none" : "flex"
     return (
@@ -31,12 +32,14 @@ const ProfileNav = ({ navSize, title, active, desc }) => {
                     pb="2"
                     pt="4"
                 >
-                    <MenuButton w={["50px", "50px", "50px", navSize === "small" ? "100%" : "210px", navSize === "small" ? "100%" : "210px"]} fontSize="xl" color={active ? "#f5f5f5" : "black"}  >
-                        <Flex alignItems={"center"} >
-                            <Avatar src="" w={"6"} h="6" />
-                            <Text ml="5" display={["none", "none", "none", width, width]} fontSize={"16px"} >{title}</Text>
-                        </Flex>
-                    </MenuButton>
+                    <NavLink to={route} >
+                        <MenuButton w={["50px", "50px", "50px", navSize === "small" ? "100%" : "210px", navSize === "small" ? "100%" : "210px"]} fontSize="xl" color={active ? "#f5f5f5" : "black"}  >
+                            <Flex alignItems={"center"} >
+                                <Avatar src="" w={"6"} h="6" />
+                                <Text ml="5" display={["none", "none", "none", width, width]} fontSize={"16px"} >{title}</Text>
+                            </Flex>
+                        </MenuButton>
+                    </NavLink>
                 </Link>
                 <Flex
                     pos="absolute"

@@ -1,15 +1,12 @@
 import React from 'react'
-import LoginPhoneCarousel from '../components/LoginPhoneCarousel'
 import { FaFacebook } from 'react-icons/fa';
 import {
-    Box, Heading,
+    Box,
     FormControl,
-    FormLabel,
     Input,
     Button,
     Container,
     InputRightElement,
-    Select,
     InputGroup,
     Image,
     Text,
@@ -128,7 +125,7 @@ const Signup = () => {
                             <Button colorScheme="blue" mt="3" mb="3" type="submit" h="35px" width={"100%"}>
                                 Sign  up
                             </Button>
-                            
+
                         </FormControl>
                     </Container>
                 </form>

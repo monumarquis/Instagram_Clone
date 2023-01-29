@@ -4,3 +4,13 @@
     border: 2.5px solid transparent;
     border-radius: 50%;
 }
+.border_image2 {
+    background: linear-gradient(#e8eaed, #e8eaed) padding-box,
+        linear-gradient(45deg, rgb(252, 0, 0), rgb(243, 220, 16)) border-box;
+    border: 3.5px solid transparent;
+    border-radius: 50%;
+}
+.border_image3 {
+    border: 1px solid rgb(202, 198, 198);
+    border-radius: 50%;
+}

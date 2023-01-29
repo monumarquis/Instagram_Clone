@@ -36,7 +36,7 @@ const SinglePost = () => {
             <Text my="1.2" ml={["4", "4", "0", 0, 0]} fontWeight={"600"} >User name Caption...</Text>
             <Text my="1" ml={["4", "4", "0", 0, 0]} fontWeight={"500"} fontSize="13" >See Translation</Text>
             <Textarea ml={["4", "4", "0", 0, 0]} variant='unstyled' placeholder='Add a comment..' w="95%" _placeholder={{ color: "#a6a39c", fontSize: 13 }} />
-            <Container maxW={["100%","100%","95%","95%","95%"]} centerContent>
+            <Container maxW={["100%", "100%", "95%", "95%", "95%"]} centerContent>
                 <Divider w="100%" bordeColor="black" mt="5" borderWidth="0.5px" />
             </Container>
         </Box>

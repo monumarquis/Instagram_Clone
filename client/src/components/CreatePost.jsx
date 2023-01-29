@@ -1,5 +1,5 @@
 import {
-    Flex, Text, Icon, Link, Menu, MenuButton, Modal,
+    Flex, Text, Modal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
@@ -19,16 +19,14 @@ import {
 } from '@chakra-ui/react'
 import { FileUploader } from "react-drag-drop-files";
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import NavHoverItem from './NavHoverItem'
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { FaPhotoVideo } from "react-icons/fa"
 import { SlLocationPin } from "react-icons/sl"
+import { CiCamera } from 'react-icons/ci';
 const fileTypes = ["JPEG", "PNG", "GIF"];
 
-const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
+const CreatePost = () => {
 
-    const [hover, sethover] = useState(false)
     const [previewSource, setpreviewSource] = useState("");
     const [location, setLocation] = useState("");
     const [caption, setCaption] = useState("");
@@ -37,8 +35,6 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     const [removefile, steremovefile] = useState(false);
     const [uploadImg, setuploadImg] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const width = navSize === "small" ? "none" : "flex"
-
     const handleInput = (file) => {
         // console.log(file[0], 'input,details');
         steremovefile(false)
@@ -74,52 +70,14 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
 
 
     return (
-        <Flex
-            mt="30"
-            w="100%"
-            flexDir="column"
-            alignItems={navSize === "small" ? "center" : "flex-start"}
-            onMouseEnter={() => {
-                sethover(true)
-            }}
-            onMouseLeave={() => {
-                sethover(false)
-            }}
-        >
-            <Menu placement='right' w="100%"  >
-                <NavLink  >
-                    <Link
-                        backgroundColor={active && "#AEC8CA"}
-                        borderRadius={navSize === "small" ? "15" : "30"}
-                        _hover={{ textDecor: 'none', backgroundColor: "#f5f5f5" }}
-                        w={navSize === "large" && "150px"}
-                        pl={navSize === "large" ? "5" : "3"}
-                        pb="3"
-                        pt="4"
-                        onClick={onOpen}
-                    >
-                        <MenuButton w={["50px", "50px", "50px", navSize === "small" ? "100%" : "210px", navSize === "small" ? "100%" : "210px"]} fontSize="xl" color={active ? "#f5f5f5" : "black"}  >
-                            <Flex alignItems={"center"} >
-                                <Icon as={icon} fontSize={"22px"} />
-                                <Text ml="5" display={["none", "none", "none", width, width]} fontSize={"16px"} >{title}</Text>
-                            </Flex>
-                        </MenuButton>
-                    </Link>
-                </NavLink>
-                <Flex
-                    pos="absolute"
-                    left={[20, 20, 20, navSize === "small" ? 16 : 250, navSize === "small" ? 16 : 250]}
-                    p={0}
-                    border="none"
-                    w={["150px", "150px", "200px", "200px"]}
-                    h="100px"
-                    ml={5}
-                    flexDir={"row"}
-                    display={hover ? "flex" : "none"}
-                >
-                    <NavHoverItem desc={desc} title={title} icon={icon} />
-                </Flex>
-            </Menu>
+        <Flex w="100%" m="auto" justifyContent={"center"} borderRadius={"50%"} pt="20" flexDir={"column"} >
+            <Flex  border="1.5px solid #212020" borderRadius={"50%"} justifyContent={"center"} alignItems={"center"} p="2" w={["20%","20%","10%","10%","8%"]} m="auto" >
+                <IconButton onClick={onOpen} color="#212020" fontSize="40px"  background={"none"} _hover={{ background: "none" }} icon={<CiCamera />} />
+            </Flex>
+            <Text textAlign={"center"} fontWeight={1000} my="3" fontSize={30} >Share Photos</Text>
+            <Text textAlign={"center"} color="#212020" fontWeight={500} mb="3" fontSize={13} >When you share photos, they will appear on your profile.</Text>
+            <Text textAlign={"center"} cursor={"pointer"} fontWeight={500} fontSize={13} onClick={onOpen} color={"blue"} >Share your first photo</Text>
+            <Text w="65%" m="auto" color="gray" fontWeight={400} mt="20" fontSize={13} >Meta  About  Blog  Jobs  Help  API  Privacy  Terms  Top  accounts  Locations  Instagram  Lite  Contact  uploading  and  non-users</Text>
             <Modal
                 isCentered
                 onClose={onClose}
@@ -158,7 +116,7 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
                             types={fileTypes}
                         />}
                         {previewSource && !uploadImg && <Image w="100%" h="100%" src={previewSource} alt="upload" />}
-                       
+
                         {uploadImg &&
                             <Flex flexDir={"row"} w="100%" >
                                 <Image w="50%" h="100%" src={previewSource} alt="upload" />
@@ -189,4 +147,4 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     )
 }
 
-export default CreateNavitem
+export default CreatePost

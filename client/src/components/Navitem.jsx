@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import NavHoverItem from './NavHoverItem'
 
-const Navitem = ({ navSize, title, icon, active, desc }) => {
+const Navitem = ({ navSize, title, icon, active, desc,route }) => {
     const [hover, sethover] = useState(false)
     const width = navSize === "small" ? "none" : "flex"
     return (
@@ -20,7 +20,7 @@ const Navitem = ({ navSize, title, icon, active, desc }) => {
             }}
         >
             <Menu placement='right' w="100%"  >
-                <NavLink to={"/"} >
+                <NavLink to={route} >
                     <Link
                         backgroundColor={active && "#AEC8CA"}
                         borderRadius={navSize === "small" ? "15" : "30"}
