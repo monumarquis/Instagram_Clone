@@ -1,5 +1,5 @@
 import {
-  Box, Button, Flex, HStack, Text, useDisclosure, Modal,
+  Box, Flex, HStack, Text, useDisclosure, Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,

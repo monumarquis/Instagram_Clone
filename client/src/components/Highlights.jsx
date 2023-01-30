@@ -1,4 +1,5 @@
 import { Box, Image, Text, VStack } from '@chakra-ui/react'
+import { BsPlusLg } from 'react-icons/bs'
 import React from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -64,7 +65,11 @@ const HighLights = () => {
   return (
     <Box w="100%" border="1px solid blue"  mt="5" pl="5" >
       <Slider {...settings}>
-        <VStack borderRadius={"50%"}   >
+        <VStack borderRadius={"50%"}  >
+          <Box className="border_image3" w="90px" h="90px" display="flex" justifyContent={"center"} alignItems={"center"}><BsPlusLg color="gray.100" fontSize="35" /></Box>
+          <Text  pl="8" fontWeight="500" fontSize="12" >New</Text>
+        </VStack>
+        <VStack borderRadius={"50%"}   > 
           <Image w="90px" h="90px" objectFit="cover" className="border_image3" p="1" borderRadius={"50%"} src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674459330/odcnwktfhhbghulzlwte.png" />
           <Text pl="5" fontWeight="500" fontSize="12" >HighLights</Text>
         </VStack>

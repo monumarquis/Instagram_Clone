@@ -1,4 +1,5 @@
-import { Box, Image, Text, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Image, Text, VStack } from '@chakra-ui/react'
+import { HiPlusCircle } from "react-icons/hi"
 import React from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,12 +12,12 @@ const settings = {
   slidesToScroll: 3,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
-  arrows:true,
+  arrows: true,
   responsive: [
     {
       breakpoint: 1025,
       settings: {
-        slidesToShow:5,
+        slidesToShow: 5,
       }
     },
     {
@@ -64,6 +65,11 @@ const Story = () => {
   return (
     <Box w="100%" border="1px solid blue" h="100px" mt="10" pl="5" >
       <Slider {...settings}>
+        <VStack borderRadius={"50%"} pos={"relative"}  >
+          <Avatar w="70px" h="70px" objectFit="cover" p="1" borderRadius={"50%"} src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674459330/odcnwktfhhbghulzlwte.png" />
+          <Text pl="2" fontWeight="500" fontSize="12" >Your Story</Text>
+          <Box pos="absolute" bottom="5" right='3' ><HiPlusCircle color='blue' fontSize={30} /></Box>
+        </VStack>
         <VStack borderRadius={"50%"}   >
           <Image w="70px" h="70px" objectFit="cover" className="border_image" p="1" borderRadius={"50%"} src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674459330/odcnwktfhhbghulzlwte.png" />
           <Text pl="2" fontWeight="500" fontSize="12" >USername</Text>

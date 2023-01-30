@@ -8,7 +8,6 @@ const UserPostSingle = () => {
             <Box h={["170px", "200px", "270px", "300px", "320px"]} className='post' >
                 <Image h="100%" src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674408559/samples/ecommerce/accessories-bag.jpg" alt="userPost" />
                 <Box className="overlay" >
-
                     <Flex w={["80%", "80%", "60%", "45%", "40%"]} m="auto" flexDir={"row"} justifyContent={"space-between"} className="text" >
                         <HStack spacing={1} >
                             <BsFillSuitHeartFill color="#fff" fontSize={"18"} fontWeight={800} />

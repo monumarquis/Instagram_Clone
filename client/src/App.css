@@ -5,7 +5,7 @@
     border-radius: 50%;
 }
 .border_image2 {
-    background: linear-gradient(#e8eaed, #e8eaed) padding-box,
+    background: linear-gradient(#fcfcfc, #f3f3f3) padding-box,
         linear-gradient(45deg, rgb(252, 0, 0), rgb(243, 220, 16)) border-box;
     border: 3.5px solid transparent;
     border-radius: 50%;

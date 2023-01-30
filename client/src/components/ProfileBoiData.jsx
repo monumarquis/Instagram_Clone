@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, HStack, IconButton, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Flex, HStack, IconButton, Text } from '@chakra-ui/react'
 import { MdPersonAddAlt1 } from "react-icons/md"
 import React from 'react'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
@@ -6,7 +6,7 @@ import { BiDotsHorizontalRounded } from 'react-icons/bi'
 const ProfileBoiData = () => {
     return (
         <Flex w={["100%", "100%", "100%", "90%", "90%"]} m="auto" border="1px solid blue" py="10" flexDir={"row"} justifyContent={"space-evenly"} alignItems={"center"} >
-            <Avatar w={["100px", "100px", "170px", "170px", "170px"]} h={["100px", "100px", "170px", "170px", "170px"]} objectFit="cover" className="border_image2" p="1" borderRadius={"50%"} src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674459330/odcnwktfhhbghulzlwte.png" />
+            <Box className="border_image2" w={["100px", "100px", "170px", "170px", "170px"]}h={["100px", "100px", "170px", "170px", "170px"]} p="1" ><Avatar w="100%" h="100%"  objectFit="cover" borderRadius={"50%"} src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674459330/odcnwktfhhbghulzlwte.png" /></Box>
             <Flex flexDir={"column"} justifyContent={"space-between"} alignItems={"left"} >
                 {/* for Mobile  */}
                 <Flex flexDir={"column"} display={['flex', 'flex', 'none', 'none', 'none']}>

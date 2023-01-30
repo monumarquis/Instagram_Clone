@@ -5,7 +5,7 @@ import "../styles/post.css"
 import UserPostSingle from './UserPostSingle'
 
 const UserPost = () => {
-    const x = false
+    const x = true
     return (
         <Flex w="100%" border={"1px solid purple"} >
             {x ? <CreatePost /> : <SimpleGrid w="100%" columns={3} spacing={[0.5, 1, 3, 5, 8]}>

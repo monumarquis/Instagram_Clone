@@ -16,6 +16,8 @@ import {
     InputRightElement,
     Input,
     Divider,
+    useToast,
+    Spinner
 } from '@chakra-ui/react'
 import { FileUploader } from "react-drag-drop-files";
 import React, { useState } from 'react'
@@ -30,6 +32,8 @@ const fileTypes = ["JPEG", "PNG", "GIF"];
 const CreatePost = () => {
     const { userId } = useSelector((state) => state.auth)
     const [previewSource, setpreviewSource] = useState("");
+    const toast = useToast()
+    const [loading, setLoading] = useState(false)
     const [location, setLocation] = useState("");
     const [caption, setCaption] = useState("");
     const initialRef = React.useRef(null)
@@ -46,20 +50,29 @@ const CreatePost = () => {
     //  save details on backend
     const handleUploadImage = async () => {
         console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
+        setLoading(true)
         try {
-            onClose()
+
+            let { data } = await axios.post("https://nem-insta-backend.onrender.com/posts", { userId, desc: caption, imageUrl: previewSource, likes: 0, })
+            toast({
+                title: data.message,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+            })
+            setLoading(false)
             steremovefile(true)
             setuploadImg(false)
             setpreviewSource("")
             setCaption("")
             setLocation("")
-            let { resposne } = await axios.post("https://nem-insta-backend.onrender.com/posts", { userId, desc: caption, imageUrl: previewSource, likes: 0, })
-            console.log(resposne);
+            onClose()
+            console.log(data.message);
         }
         catch (err) {
+            setLoading(false)
             console.log(err);
         }
-        console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
     }
 
     const handleBack = () => {
@@ -90,7 +103,6 @@ const CreatePost = () => {
             <Text w="65%" m="auto" color="gray" fontWeight={400} mt="20" fontSize={13} >Meta  About  Blog  Jobs  Help  API  Privacy  Terms  Top  accounts  Locations  Instagram  Lite  Contact  uploading  and  non-users</Text>
             <Modal
                 isCentered
-                closeOnOverlayClick={false}
                 onClose={onClose}
                 isOpen={isOpen}
                 initialFocusRef={initialRef}
@@ -98,17 +110,19 @@ const CreatePost = () => {
                 motionPreset='slideInBottom'
                 size={uploadImg ? "xl" : "md"}
                 scrollBehavior={uploadImg && 'inside'}
+                closeOnOverlayClick={false}
             >
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader borderBottom={"1px solid gray"} mb="30" >
-                        <Flex justifyContent={"space-between"} flexDir={"row"} mt="10" alignContent={"center"} >
+                    <ModalHeader >
+                    <Text textAlign={"center"} >{previewSource ? "Review Your Post" : "Create New Post"}</Text>
+                         <Divider w="100%" />
+                        <Flex justifyContent={"space-between"} flexDir={"row"} mt="2" alignContent={"center"} >
                             {previewSource && <IconButton onClick={handleBack} textAlign={"left"} fontSize={["22px", "22px", "28px", "28px", "28px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="black" icon={<AiOutlineArrowLeft />} />}
                             {previewSource && !uploadImg && <Text cursor={"pointer"} fontSize={'12'} onClick={() => { setuploadImg(true) }} color="blue" >Next</Text>}
-                            {uploadImg && <Text cursor={"pointer"} fontSize={'12'} onClick={handleUploadImage} color="blue" >Share</Text>}
+                            {uploadImg && !loading && <Text cursor={"pointer"} fontSize={'12'} onClick={handleUploadImage} color="blue" >Share</Text>}
+                            {uploadImg && loading && <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='gray.400' size='md'/>}
                         </Flex>
-                        <Text textAlign={"center"} >{previewSource ? "Review Your Post" : "Create New Post"}</Text>
-
                     </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody py={!previewSource && "20"}  >
@@ -126,7 +140,7 @@ const CreatePost = () => {
                             classes="Drag_Input"
                             types={fileTypes}
                         />}
-                        {previewSource && !uploadImg && <Image w="100%" h="100%" src={previewSource} alt="upload" />}
+                        {previewSource && !uploadImg && <Image  w="100%" h="60vh" objectFit={"cover"} src={previewSource} alt="upload" />}
 
                         {uploadImg &&
                             <Flex flexDir={"row"} w="100%" >

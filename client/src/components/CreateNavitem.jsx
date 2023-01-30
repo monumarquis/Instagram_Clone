@@ -17,6 +17,7 @@ import {
     Input,
     Divider,
     useToast,
+    Spinner,
 } from '@chakra-ui/react'
 import { FileUploader } from "react-drag-drop-files";
 import React, { useState } from 'react'
@@ -33,6 +34,7 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     const { userId } = useSelector((state) => state.auth)
     const toast = useToast()
     const [hover, sethover] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [previewSource, setpreviewSource] = useState("");
     const [location, setLocation] = useState("");
     const [caption, setCaption] = useState("");
@@ -52,6 +54,7 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     //  save details on backend
     const handleUploadImage = async () => {
         console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
+       setLoading(true)
         try {
 
             let { data } = await axios.post("https://nem-insta-backend.onrender.com/posts", { userId, desc: caption, imageUrl: previewSource, likes: 0, })
@@ -61,15 +64,17 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
                 duration: 2000,
                 isClosable: true,
             })
-            onClose()
+            setLoading(false)
             steremovefile(true)
             setuploadImg(false)
             setpreviewSource("")
             setCaption("")
             setLocation("")
+            onClose()
             console.log(data.message);
         }
         catch (err) {
+            setLoading(false)
             console.log(err);
         }
 
@@ -152,14 +157,15 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
             >
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader borderBottom={"1px solid gray"} mb="30" >
-                        <Flex justifyContent={"space-between"} flexDir={"row"} mt="10" alignContent={"center"} >
+                    <ModalHeader >
+                    <Text textAlign={"center"} >{previewSource ? "Review Your Post" : "Create New Post"}</Text>
+                         <Divider w="100%" />
+                        <Flex justifyContent={"space-between"} flexDir={"row"} mt="2" alignContent={"center"} >
                             {previewSource && <IconButton onClick={handleBack} textAlign={"left"} fontSize={["22px", "22px", "28px", "28px", "28px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="black" icon={<AiOutlineArrowLeft />} />}
                             {previewSource && !uploadImg && <Text cursor={"pointer"} fontSize={'12'} onClick={() => { setuploadImg(true) }} color="blue" >Next</Text>}
-                            {uploadImg && <Text cursor={"pointer"} fontSize={'12'} onClick={handleUploadImage} color="blue" >Share</Text>}
+                            {uploadImg && !loading && <Text cursor={"pointer"} fontSize={'12'} onClick={handleUploadImage} color="blue" >Share</Text>}
+                            {uploadImg && loading && <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='gray.400' size='md'/>}
                         </Flex>
-                        <Text textAlign={"center"} >{previewSource ? "Review Your Post" : "Create New Post"}</Text>
-
                     </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody py={!previewSource && "20"}  >
@@ -177,7 +183,7 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
                             classes="Drag_Input"
                             types={fileTypes}
                         />}
-                        {previewSource && !uploadImg && <Image w="100%" h="100%" src={previewSource} alt="upload" />}
+                        {previewSource && !uploadImg && <Image w="100%" h="60vh" objectFit={"cover"} src={previewSource} alt="upload" />}
 
                         {uploadImg &&
                             <Flex flexDir={"row"} w="100%" >
