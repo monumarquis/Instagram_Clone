@@ -16,6 +16,7 @@ import {
     InputRightElement,
     Input,
     Divider,
+    useToast,
 } from '@chakra-ui/react'
 import { FileUploader } from "react-drag-drop-files";
 import React, { useState } from 'react'
@@ -24,10 +25,13 @@ import NavHoverItem from './NavHoverItem'
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { FaPhotoVideo } from "react-icons/fa"
 import { SlLocationPin } from "react-icons/sl"
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 const fileTypes = ["JPEG", "PNG", "GIF"];
 
 const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
-
+    const { userId } = useSelector((state) => state.auth)
+    const toast = useToast()
     const [hover, sethover] = useState(false)
     const [previewSource, setpreviewSource] = useState("");
     const [location, setLocation] = useState("");
@@ -47,13 +51,28 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     };
     //  save details on backend
     const handleUploadImage = async () => {
-        onClose()
-        steremovefile(true)
-        setuploadImg(false)
-        setpreviewSource("")
-        setCaption("")
-        setLocation("")
-        // console.log({ location, caption });
+        console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
+        try {
+
+            let { data } = await axios.post("https://nem-insta-backend.onrender.com/posts", { userId, desc: caption, imageUrl: previewSource, likes: 0, })
+            toast({
+                title: data.message,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+            })
+            onClose()
+            steremovefile(true)
+            setuploadImg(false)
+            setpreviewSource("")
+            setCaption("")
+            setLocation("")
+            console.log(data.message);
+        }
+        catch (err) {
+            console.log(err);
+        }
+
     }
 
     const handleBack = () => {
@@ -129,6 +148,7 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
                 motionPreset='slideInBottom'
                 size={uploadImg ? "xl" : "md"}
                 scrollBehavior={uploadImg && 'inside'}
+                closeOnOverlayClick={false}
             >
                 <ModalOverlay />
                 <ModalContent>
@@ -158,7 +178,7 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
                             types={fileTypes}
                         />}
                         {previewSource && !uploadImg && <Image w="100%" h="100%" src={previewSource} alt="upload" />}
-                       
+
                         {uploadImg &&
                             <Flex flexDir={"row"} w="100%" >
                                 <Image w="50%" h="100%" src={previewSource} alt="upload" />

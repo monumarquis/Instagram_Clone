@@ -1,37 +1,64 @@
-import { useNavigate } from "react-router-dom";
-import { LOGIN, LOGOUT } from "./auth.types";
+import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./auth.types";
 
 let token = localStorage.getItem("token")
 const initState = {
- isAuth:!!token,
- token,
- userId:""
+  isAuth: !!token,
+  token,
+  userId: "",
+  loading: false,
+  error: false
 };
 export const authReducer = (
   state = initState,
   { type, payload }
 ) => {
   switch (type) {
-    case LOGIN: {
-      localStorage.setItem("token",payload.token)
+    case LOGIN_SUCCESS: {
+      localStorage.setItem("token", payload.token)
 
       return {
         ...state,
-        isAuth:true,
-        token:payload.token,
-        userId:payload.userId
+        isAuth: true,
+        token: payload.token,
+        userId: payload.userId,
+        loading: false,
+        error: false
+      };
+    }
+    case LOGIN_REQUEST: {
+
+      return {
+        ...state,
+        isAuth: false,
+        token: "",
+        userId: "",
+        loading: true,
+        error: false
+      };
+    }
+    case LOGIN_ERROR: {
+
+      return {
+        ...state,
+        isAuth: false,
+        token: "",
+        userId: "",
+        loading: false,
+        error: true
       };
     }
     case LOGOUT: {
       localStorage.removeItem("token")
-        return {
-          ...state,
-          isAuth:false,
-          token:"",
-          userId:""
-        };
-      }
-    
+      return {
+        ...state,
+        isAuth: false,
+        token: "",
+        userId: "",
+        loading: false,
+        error: false
+      };
+    }
+
     default: {
       return state;
     }

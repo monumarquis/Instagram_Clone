@@ -1,0 +1,47 @@
+.section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.section .loader {
+    position: relative;
+    height: 50px;
+    width: 50px;
+}
+
+.section .loader span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: rotate(calc(18deg * var(--i)));
+}
+
+.section .loader span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    background-color: rgb(70, 68, 68);
+    /* box-shadow: 0 0 10px rgb(70, 68, 68),
+        0 0 20px rgb(70, 68, 68),
+        0 0 40px rgb(70, 68, 68),
+        0 0 60px rgb(70, 68, 68),
+        0 0 80px rgb(70, 68, 68),
+        0 0 100px rgb(70, 68, 68); */
+        animation: animate 2s linear infinite;
+        animation-delay: calc(0.1s *var(--i));
+}
+@keyframes animate{
+0%{
+    transform: scale(1);
+}
+80%,100%{
+    transform: scale(0);
+}
+}

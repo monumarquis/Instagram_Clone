@@ -23,10 +23,12 @@ import { AiOutlineArrowLeft } from "react-icons/ai"
 import { FaPhotoVideo } from "react-icons/fa"
 import { SlLocationPin } from "react-icons/sl"
 import { CiCamera } from 'react-icons/ci';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 const fileTypes = ["JPEG", "PNG", "GIF"];
 
 const CreatePost = () => {
-
+    const { userId } = useSelector((state) => state.auth)
     const [previewSource, setpreviewSource] = useState("");
     const [location, setLocation] = useState("");
     const [caption, setCaption] = useState("");
@@ -43,13 +45,21 @@ const CreatePost = () => {
     };
     //  save details on backend
     const handleUploadImage = async () => {
-        onClose()
-        steremovefile(true)
-        setuploadImg(false)
-        setpreviewSource("")
-        setCaption("")
-        setLocation("")
-        // console.log({ location, caption });
+        console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
+        try {
+            onClose()
+            steremovefile(true)
+            setuploadImg(false)
+            setpreviewSource("")
+            setCaption("")
+            setLocation("")
+            let { resposne } = await axios.post("https://nem-insta-backend.onrender.com/posts", { userId, desc: caption, imageUrl: previewSource, likes: 0, })
+            console.log(resposne);
+        }
+        catch (err) {
+            console.log(err);
+        }
+        console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
     }
 
     const handleBack = () => {
@@ -71,8 +81,8 @@ const CreatePost = () => {
 
     return (
         <Flex w="100%" m="auto" justifyContent={"center"} borderRadius={"50%"} pt="20" flexDir={"column"} >
-            <Flex  border="1.5px solid #212020" borderRadius={"50%"} justifyContent={"center"} alignItems={"center"} p="2" w={["20%","20%","10%","10%","8%"]} m="auto" >
-                <IconButton onClick={onOpen} color="#212020" fontSize="40px"  background={"none"} _hover={{ background: "none" }} icon={<CiCamera />} />
+            <Flex border="1.5px solid #212020" borderRadius={"50%"} justifyContent={"center"} alignItems={"center"} p="2" w={["20%", "20%", "10%", "10%", "8%"]} m="auto" >
+                <IconButton onClick={onOpen} color="#212020" fontSize="40px" background={"none"} _hover={{ background: "none" }} icon={<CiCamera />} />
             </Flex>
             <Text textAlign={"center"} fontWeight={1000} my="3" fontSize={30} >Share Photos</Text>
             <Text textAlign={"center"} color="#212020" fontWeight={500} mb="3" fontSize={13} >When you share photos, they will appear on your profile.</Text>
@@ -80,6 +90,7 @@ const CreatePost = () => {
             <Text w="65%" m="auto" color="gray" fontWeight={400} mt="20" fontSize={13} >Meta  About  Blog  Jobs  Help  API  Privacy  Terms  Top  accounts  Locations  Instagram  Lite  Contact  uploading  and  non-users</Text>
             <Modal
                 isCentered
+                closeOnOverlayClick={false}
                 onClose={onClose}
                 isOpen={isOpen}
                 initialFocusRef={initialRef}

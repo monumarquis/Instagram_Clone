@@ -26,10 +26,10 @@ const initState = {
 const Login = () => {
     const [formData, setFormData] = useState(initState);
     const [show, setShow] = useState(false);
-    const { isAuth } = useSelector((state) => state.auth)
+    const data = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const handleClick = () => setShow(!show);
-    if (isAuth) {
+    if (data.isAuth) {
         return <Navigate to="/" />
     }
     const handleChange = (e) => {
@@ -43,7 +43,7 @@ const Login = () => {
         dispatch(LogIn(formData))
         console.log(formData);
     };
-    console.log(formData);
+    console.log(data);
     return (
         <Box background={"gray.50"} axW="105%" margin="auto" mr="-5" pb="10">
             <Box display="flex" justifyContent="center" maxW="100%" margin="auto" >
@@ -93,7 +93,7 @@ const Login = () => {
                                     </InputRightElement>
                                 </InputGroup>
 
-                                <Button colorScheme="blue" mt="3" mb="3" type="submit" h="35px" width={"100%"}>
+                                <Button colorScheme="blue" mt="3" mb="3" type="submit" h="35px" width={"100%"} isLoading={data.loading} loadingText='Submitting'>
                                     Log  in
                                 </Button>
                                 <HStack spacing="5" justifyContent="center">

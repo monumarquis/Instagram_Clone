@@ -27,6 +27,7 @@ const initState = {
 const Signup = () => {
     const toast = useToast()
     const [formData, setFormData] = useState(initState);
+    const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
     const navigate = useNavigate()
@@ -38,8 +39,9 @@ const Signup = () => {
     };
     const handelForm = async (e) => {
         e.preventDefault();
+        setLoading(true)
         try {
-            let { data } = await axios.post('http://localhost:8001/users/signup', formData)
+            let { data } = await axios.post('https://nem-insta-backend.onrender.com/users/signup', formData)
             console.log(data);
             toast({
                 title: data.message,
@@ -48,11 +50,13 @@ const Signup = () => {
                 duration: 2000,
                 isClosable: true,
               })
+              setLoading(false)
             navigate('/login')
 
         }
         catch ({ response: { data } }) {
             console.log(data.message);
+            setLoading(false)
             toast({
                 title: "Something went wrong",
                 description:data.message ,
@@ -146,7 +150,7 @@ const Signup = () => {
                                 </InputGroup>
                                 <Text color="gray" fontSize={"11"} my="4">People who use our service may have uploaded your contact information to Instagram. Learn more</Text>
                                 <Text color="gray" fontSize={"11"} my="4">By signing up, you agree to our Terms, Privacy Policy and Cookies Policy.</Text>
-                                <Button colorScheme="blue" mt="3" mb="3" type="submit" h="35px" width={"100%"}>
+                                <Button colorScheme="blue" mt="3" mb="3" type="submit" h="35px" width={"100%"} isLoading={loading} loadingText='Account is Creating'>
                                     Sign  up
                                 </Button>
 

@@ -6,10 +6,11 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import { authReducer } from "./auth/auth.reducer";
+import { randomPostReducer } from "./randomPost/randomPost.reducer";
 const rootReducer = combineReducers({
   auth: authReducer,
+  randomPost: randomPostReducer,
   // userBoi: userBoiReducer
-  // randomPost: randomPostReducer,
   // userPost: userPostReducer
   // postComment: postCommentReducer
 });
