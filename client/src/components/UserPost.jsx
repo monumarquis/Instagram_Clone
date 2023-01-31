@@ -1,22 +1,27 @@
 import { Flex, SimpleGrid } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import CreatePost from './CreatePost'
 import "../styles/post.css"
 import UserPostSingle from './UserPostSingle'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserPost } from '../redux/userPost/userPost.actions'
+import LoadingSpinner from './LoadingSpinner'
 
 const UserPost = () => {
-    const x = true
+    const dispatch = useDispatch()
+    const data = useSelector((state) => state.userPost)
+    const { userId } = useSelector((state) => state.auth)
+    console.log(data);
+    useEffect(() => {
+        dispatch(getUserPost(userId))
+    }, [])
+    if(data.loading){
+        return <LoadingSpinner Sectionheight={"50px"} loaderWidth={"50px"} loaderHeight={"50px"} />
+    }
     return (
         <Flex w="100%" border={"1px solid purple"} >
-            {x ? <CreatePost /> : <SimpleGrid w="100%" columns={3} spacing={[0.5, 1, 3, 5, 8]}>
-              <UserPostSingle />
-              <UserPostSingle />
-              <UserPostSingle />
-              <UserPostSingle />
-              <UserPostSingle />
-              <UserPostSingle />
-              <UserPostSingle />
-              <UserPostSingle />
+            {data.userPost.length === 0 ? <CreatePost /> : <SimpleGrid w="100%" columns={3} spacing={[0.5, 1, 3, 5, 8]}>
+                {data.userPost.map((el)=><UserPostSingle imageUrl={el.imageUrl} key={el.id} />)}
             </SimpleGrid>}
         </Flex>
     )

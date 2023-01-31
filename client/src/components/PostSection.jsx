@@ -17,7 +17,10 @@ const PostSection = () => {
             border="1px solid green"
         >
             {data.loading ? <LoadingSpinner Sectionheight={"50px"} loaderWidth={"50px"} loaderHeight={"50px"} /> :
-                <SinglePost />
+                data.randomPost.map((el) => <SinglePost imageUrl={el.imageUrl}
+                    likes={el.likes} desc={el.desdription} key={el.id}
+
+                />)
             }
         </Box>
     )

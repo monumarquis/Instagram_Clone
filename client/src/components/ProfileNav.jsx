@@ -1,9 +1,11 @@
 import { Flex, Text, Link, Menu, MenuButton, Avatar } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import NavHoverItem from './NavHoverItem'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 
 const ProfileNav = ({ navSize, title, active, desc, route }) => {
+    let { userId } = useParams()
+    console.log(userId);
     const [hover, sethover] = useState(false)
     const width = navSize === "small" ? "none" : "flex"
     return (

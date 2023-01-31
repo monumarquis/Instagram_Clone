@@ -13,10 +13,13 @@ import Navitem from './Navitem'
 import ProfileNav from './ProfileNav'
 import CreateNavitem from './CreateNavitem'
 import SearchNavitem from './SearchNavitem'
+import { useSelector } from 'react-redux'
 const Sidebar = () => {
+    const {username} = useSelector((state)=>state.auth)
+    console.log("username",username);
     const [navSize, setNavSize] = useState("large")
     
-   
+    
     const togglemenu = () => {
         if (navSize === "small") setNavSize("large")
         else setNavSize("small")
@@ -46,12 +49,12 @@ const Sidebar = () => {
                 </Flex>
                 <Navitem navSize={navSize} route={"/"} icon={MdHomeFilled} title="Home" desc="See All Friend's Post " />
                 <SearchNavitem setNavSize={setNavSize} navSize={navSize} icon={BsSearch} title="Search" desc="Search For User's " />
-                <Navitem navSize={navSize} route={"/explore"} icon={SlCompass} title="Explore" desc="Explore new Content" />
+                <Navitem navSize={navSize} route={""} icon={SlCompass} title="Explore" desc="Explore new Content" />
                 <Navitem navSize={navSize} route={"/reels"} icon={TfiVideoClapper} title="Reels" desc="See Top Videos " />
-                <Navitem navSize={navSize} route={"/messages"} icon={RiMessengerLine} title="Messages" desc="See Your Messages" />
-                <Navitem navSize={navSize} route={"/notification"} icon={SlHeart} title="Notifications" desc="See Your Notifcations" />
+                <Navitem navSize={navSize} route={""} icon={RiMessengerLine} title="Messages" desc="See Your Messages" />
+                <Navitem navSize={navSize} route={""} icon={SlHeart} title="Notifications" desc="See Your Notifcations" />
                 <CreateNavitem navSize={navSize} icon={CgAddR} title="Create" desc="Upload Your Post's " />
-                <ProfileNav navSize={navSize} route={"/profile"} title="Profile" desc="See Your Profile" />
+                <ProfileNav navSize={navSize} route={`/${username}`} title="Profile" desc="See Your Profile" />
                 <Navitem navSize={navSize} icon={RxHamburgerMenu} title="More" desc="Setting Your Account" />
             </Flex>
 

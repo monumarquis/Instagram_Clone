@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useParams } from "react-router-dom";
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import { Flex } from '@chakra-ui/react';
@@ -13,7 +13,9 @@ import { useSelector } from 'react-redux';
 const AllRoutes = () => {
   const location = useLocation()
   const { isAuth } = useSelector((state) => state.auth)
-  let x = location.pathname.includes('/profile')
+  let { userId } = useParams()
+  let x = location.pathname.includes(`/${userId}`)
+  console.log(x,"x",`/${userId}`);
   let w = x ? "88%" : "70%"
   let ml = x ? "11%" : "20%"
   let loginwidth = isAuth ? ["100%", "100%", w, "81.3%", "81.3%"] : ["100%","100%","100%","100%","100%"]
@@ -22,7 +24,7 @@ const AllRoutes = () => {
     <Flex w={loginwidth} ml={loginMarginLeft} flexDir={"column"} border={"1px solid red"}>
       <Routes>
         <Route path='/' element={<PrivateRoutes><Home /></PrivateRoutes>}></Route>
-        <Route path='/profile' element={<PrivateRoutes><ProfileAccount /></PrivateRoutes>}>
+        <Route path='/:userId' element={<PrivateRoutes><ProfileAccount /></PrivateRoutes>}>
           <Route path="" element={<PrivateRoutes><UserPost /></PrivateRoutes>}></Route>
           <Route path="reels" element={<PrivateRoutes><UserReels /></PrivateRoutes>}></Route>
           <Route path="tagged" element={<PrivateRoutes><UserTaggedpost /></PrivateRoutes>}></Route>

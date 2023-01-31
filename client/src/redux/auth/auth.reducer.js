@@ -5,6 +5,7 @@ const initState = {
   isAuth: !!token,
   token,
   userId: "",
+  username:"",
   loading: false,
   error: false
 };
@@ -21,6 +22,7 @@ export const authReducer = (
         isAuth: true,
         token: payload.token,
         userId: payload.userId,
+        username: payload.username,
         loading: false,
         error: false
       };
@@ -32,6 +34,7 @@ export const authReducer = (
         isAuth: false,
         token: "",
         userId: "",
+        username: "",
         loading: true,
         error: false
       };
@@ -43,6 +46,7 @@ export const authReducer = (
         isAuth: false,
         token: "",
         userId: "",
+        username: "",
         loading: false,
         error: true
       };
@@ -54,6 +58,7 @@ export const authReducer = (
         isAuth: false,
         token: "",
         userId: "",
+        username: "",
         loading: false,
         error: false
       };
