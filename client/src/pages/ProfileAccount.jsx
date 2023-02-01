@@ -3,14 +3,16 @@ import React from 'react'
 import ProfileBoiData from '../components/ProfileBoiData'
 import HighLights from '../components/Highlights'
 import UserAllFeed from '../components/UserAllFeed'
+import { useSelector } from 'react-redux'
 
 const ProfileAccount = () => {
+    const { userBoi } = useSelector((state) => state.userBoi)
     return (
         <Flex flexDir={"column"} w={["95%", "95%", "100%", "100%", "85%"]} margin={'auto'} >
             <ProfileBoiData />
             {/* for Mobile  */}
             <Flex flexDir={"column"} display={['flex', 'flex', 'none', 'none', 'none']} ml="8%" justifyContent={"left"} >
-                <Text fontSize={15} fontWeight={500} >Real Name</Text>
+                <Text fontSize={15} fontWeight={500} >{userBoi.realname}</Text>
                 <Text fontSize={14} fontWeight={500} color={"gray"} >profession</Text>
                 <Text fontSize={14} fontWeight={400} >Let's WIN it together!</Text>
                 <Text fontSize={14} fontWeight={400} >📚 English Battle 📚</Text>
@@ -29,7 +31,7 @@ const ProfileAccount = () => {
                 </VStack>
                 <VStack spacing={0}>
                     <Text fontSize={16} fontWeight={500} >98.7k </Text>
-                    <Text fontSize={15} color="GrayText" fontWeight={400} >followers</Text>
+                    <Text fontSize={15} color="GrayText" fontWeight={400} >ollowers</Text>
                 </VStack>
                 <VStack spacing={0}>
                     <Text fontSize={16} fontWeight={500} >0</Text>

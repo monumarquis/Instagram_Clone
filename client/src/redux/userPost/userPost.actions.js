@@ -6,7 +6,7 @@ import { USER_POST_ERROR, USER_POST_REQUEST, USER_POST_SUCCESS } from "./userPos
 export const getUserPost = (creds) => async (dispatch) => {
     const config = {
         headers: {
-            userid: creds
+            username: creds
         }
     };
     dispatch({ type: USER_POST_REQUEST })

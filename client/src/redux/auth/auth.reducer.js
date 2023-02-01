@@ -1,11 +1,11 @@
-import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./auth.types";
+import { LOGIN_DEFAULT, LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./auth.types";
 
 let token = localStorage.getItem("token")
 const initState = {
   isAuth: !!token,
   token,
-  userId: "",
-  username:"",
+  userId: localStorage.getItem("userId"),
+  username: localStorage.getItem("username"),
   loading: false,
   error: false
 };
@@ -16,6 +16,8 @@ export const authReducer = (
   switch (type) {
     case LOGIN_SUCCESS: {
       localStorage.setItem("token", payload.token)
+      localStorage.setItem("userId", payload.userId)
+      localStorage.setItem("username", payload.username)
 
       return {
         ...state,
@@ -23,6 +25,18 @@ export const authReducer = (
         token: payload.token,
         userId: payload.userId,
         username: payload.username,
+        loading: false,
+        error: false
+      };
+    }
+    case LOGIN_DEFAULT: {
+
+      return {
+        ...state,
+        isAuth: false,
+        token: "",
+        userId: "",
+        username: "",
         loading: false,
         error: false
       };
@@ -48,11 +62,14 @@ export const authReducer = (
         userId: "",
         username: "",
         loading: false,
-        error: true
+        error: true,
+        errorMessage: payload
       };
     }
     case LOGOUT: {
       localStorage.removeItem("token")
+      localStorage.removeItem("userId")
+      localStorage.removeItem("username")
       return {
         ...state,
         isAuth: false,

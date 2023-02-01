@@ -4,6 +4,7 @@ import SinglePost from './SinglePost'
 import LoadingSpinner from './LoadingSpinner'
 import { getRandomPost } from '../redux/randomPost/randomPost.actions'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 const PostSection = () => {
     const data = useSelector((state) => state.randomPost)
@@ -18,8 +19,8 @@ const PostSection = () => {
         >
             {data.loading ? <LoadingSpinner Sectionheight={"50px"} loaderWidth={"50px"} loaderHeight={"50px"} /> :
                 data.randomPost.map((el) => <SinglePost imageUrl={el.imageUrl}
-                    likes={el.likes} desc={el.desdription} key={el.id}
-
+                    likes={el.likes} desc={el.description} key={el._id}
+                    username={el.user.username} userImageUrl={el.user.imageUrl}
                 />)
             }
         </Box>

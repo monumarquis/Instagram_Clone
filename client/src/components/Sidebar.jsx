@@ -15,17 +15,17 @@ import CreateNavitem from './CreateNavitem'
 import SearchNavitem from './SearchNavitem'
 import { useSelector } from 'react-redux'
 const Sidebar = () => {
-    const {username} = useSelector((state)=>state.auth)
-    console.log("username",username);
+    const { username } = useSelector((state) => state.auth)
+    console.log("username", username);
     const [navSize, setNavSize] = useState("large")
-    
-    
+
+
     const togglemenu = () => {
         if (navSize === "small") setNavSize("large")
         else setNavSize("small")
     }
     const width = navSize === "small" ? "80px" : "260px"
-    
+
     return (
         <Flex pos="fixed" top="1px" left="0" h="110vh" borderRight={"1px solid #999790"}
             w={['80px', "80px", "80px", width, width]}
@@ -40,7 +40,6 @@ const Sidebar = () => {
                 flexDir="column"
                 alignItems={navSize === "small" ? "center" : "flex-start"}
                 as="nav"
-
             >
                 <IconButton display={["initial", "initial", "initial", "none", "none"]} fontSize={25} pl="5" background="none" color="black" _hover={{ background: "none" }} icon={<BsInstagram />} />
                 <Flex alignItems={"center"} flexDir="row" mt="4" pl={navSize === "small" ? "4" : "0"} display={["none", "none", "none", "flex", "flex"]} w="100%">

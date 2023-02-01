@@ -24,7 +24,7 @@ const AllRoutes = () => {
     <Flex w={loginwidth} ml={loginMarginLeft} flexDir={"column"} border={"1px solid red"}>
       <Routes>
         <Route path='/' element={<PrivateRoutes><Home /></PrivateRoutes>}></Route>
-        <Route path='/:userId' element={<PrivateRoutes><ProfileAccount /></PrivateRoutes>}>
+        <Route path='/:username' element={<PrivateRoutes><ProfileAccount /></PrivateRoutes>}>
           <Route path="" element={<PrivateRoutes><UserPost /></PrivateRoutes>}></Route>
           <Route path="reels" element={<PrivateRoutes><UserReels /></PrivateRoutes>}></Route>
           <Route path="tagged" element={<PrivateRoutes><UserTaggedpost /></PrivateRoutes>}></Route>

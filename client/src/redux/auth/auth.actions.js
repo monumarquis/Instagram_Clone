@@ -1,7 +1,6 @@
 
 import axios from "axios";
-import Swal from 'sweetalert2';
-import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./auth.types";
+import { LOGIN_DEFAULT, LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./auth.types";
 export const LogIn = (creds) => async (dispatch) => {
   dispatch({
     type: LOGIN_REQUEST
@@ -9,11 +8,6 @@ export const LogIn = (creds) => async (dispatch) => {
 
   try {
     const { data } = await axios.post(`http://localhost:8001/users/login`, creds);
-    Swal.fire({
-      icon: 'success',
-      title: data.message
-    })
-
     console.log(data);
     return dispatch({
       type: LOGIN_SUCCESS,
@@ -22,10 +16,6 @@ export const LogIn = (creds) => async (dispatch) => {
   }
   catch ({ response: { data: { message } } }) {
     console.log(message);
-    Swal.fire({
-      icon: 'error',
-      title: message
-    })
     return dispatch({
       type: LOGIN_ERROR,
       payload: message,
@@ -35,3 +25,4 @@ export const LogIn = (creds) => async (dispatch) => {
 };
 
 export const LogOut = () => ({ type: LOGOUT })
+export const LogInDefault = () => ({ type: LOGIN_DEFAULT })

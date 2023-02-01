@@ -6,15 +6,16 @@ import UserPostSingle from './UserPostSingle'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserPost } from '../redux/userPost/userPost.actions'
 import LoadingSpinner from './LoadingSpinner'
+import { useParams } from 'react-router-dom'
 
 const UserPost = () => {
     const dispatch = useDispatch()
     const data = useSelector((state) => state.userPost)
-    const { userId } = useSelector((state) => state.auth)
+    const { username } = useParams()
     console.log(data);
     useEffect(() => {
-        dispatch(getUserPost(userId))
-    }, [])
+        dispatch(getUserPost(username))
+    }, [username])
     if(data.loading){
         return <LoadingSpinner Sectionheight={"50px"} loaderWidth={"50px"} loaderHeight={"50px"} />
     }

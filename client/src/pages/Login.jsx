@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import LoginPhoneCarousel from '../components/LoginPhoneCarousel'
 import { FaFacebook } from 'react-icons/fa';
+import { MdError } from 'react-icons/md';
 import {
     Box,
     FormControl,
@@ -14,22 +15,35 @@ import {
     Center,
     HStack,
     Divider,
+    useToast,
 } from '@chakra-ui/react'
 import { useState } from "react";
 import { NavLink, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { LogIn } from '../redux/auth/auth.actions';
+import { LogIn, LogInDefault } from '../redux/auth/auth.actions';
 const initState = {
     email: "",
     password: "",
 };
 const Login = () => {
+    const toast = useToast()
     const [formData, setFormData] = useState(initState);
     const [show, setShow] = useState(false);
     const data = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const handleClick = () => setShow(!show);
+
+    useEffect(() => {
+        dispatch(LogInDefault())
+    },[])
     if (data.isAuth) {
+        toast({
+            title: data.message,
+            description: "hurray ! logged in",
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+        })
         return <Navigate to="/" />
     }
     const handleChange = (e) => {
@@ -45,7 +59,7 @@ const Login = () => {
     };
     console.log(data);
     return (
-        <Box background={"gray.50"} axW="105%" margin="auto" mr="-5" pb="10">
+        <Box background={"gray.50"} maxW="105%" margin="auto" mr="-5" pb="10">
             <Box display="flex" justifyContent="center" maxW="100%" margin="auto" >
                 <LoginPhoneCarousel />
                 <Box maxW={["100%", "100%", "50%", "40%", "30%"]} >
@@ -92,7 +106,12 @@ const Login = () => {
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
-
+                                {data.error &&
+                                    <HStack w="100%" background={"red.100"} spacing={"2"} mt="5" p="2" >
+                                        <MdError color={"red"} />
+                                        <Text color={"red"} >{data.errorMessage}</Text>
+                                    </HStack>
+                                }
                                 <Button colorScheme="blue" mt="3" mb="3" type="submit" h="35px" width={"100%"} isLoading={data.loading} loadingText='Submitting'>
                                     Log  in
                                 </Button>

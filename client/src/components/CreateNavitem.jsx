@@ -18,6 +18,7 @@ import {
     Divider,
     useToast,
     Spinner,
+    Avatar,
 } from '@chakra-ui/react'
 import { FileUploader } from "react-drag-drop-files";
 import React, { useState } from 'react'
@@ -27,11 +28,14 @@ import { AiOutlineArrowLeft } from "react-icons/ai"
 import { FaPhotoVideo } from "react-icons/fa"
 import { SlLocationPin } from "react-icons/sl"
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRandomPost } from '../redux/randomPost/randomPost.actions';
 const fileTypes = ["JPEG", "PNG", "GIF"];
 
 const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     const { userId } = useSelector((state) => state.auth)
+    const { userBoi } = useSelector((state) => state.userBoi)
+    const dispatch = useDispatch()
     const toast = useToast()
     const [hover, sethover] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -54,10 +58,10 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     //  save details on backend
     const handleUploadImage = async () => {
         console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
-       setLoading(true)
+        setLoading(true)
         try {
 
-            let { data } = await axios.post("https://nem-insta-backend.onrender.com/posts", { userId, desc: caption, imageUrl: previewSource, likes: 0, })
+            let { data } = await axios.post("http://localhost:8001/posts", { userId, desc: caption, location, imageUrl: previewSource, likes: 0, })
             toast({
                 title: data.message,
                 status: 'success',
@@ -71,6 +75,7 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
             setCaption("")
             setLocation("")
             onClose()
+            dispatch(getRandomPost())
             console.log(data.message);
         }
         catch (err) {
@@ -158,13 +163,13 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader >
-                    <Text textAlign={"center"} >{previewSource ? "Review Your Post" : "Create New Post"}</Text>
-                         <Divider w="100%" />
+                        <Text textAlign={"center"} >{previewSource ? "Review Your Post" : "Create New Post"}</Text>
+                        <Divider w="100%" />
                         <Flex justifyContent={"space-between"} flexDir={"row"} mt="2" alignContent={"center"} >
                             {previewSource && <IconButton onClick={handleBack} textAlign={"left"} fontSize={["22px", "22px", "28px", "28px", "28px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="black" icon={<AiOutlineArrowLeft />} />}
                             {previewSource && !uploadImg && <Text cursor={"pointer"} fontSize={'12'} onClick={() => { setuploadImg(true) }} color="blue" >Next</Text>}
                             {uploadImg && !loading && <Text cursor={"pointer"} fontSize={'12'} onClick={handleUploadImage} color="blue" >Share</Text>}
-                            {uploadImg && loading && <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='gray.400' size='md'/>}
+                            {uploadImg && loading && <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='gray.400' size='md' />}
                         </Flex>
                     </ModalHeader>
                     <ModalCloseButton />
@@ -187,11 +192,11 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
 
                         {uploadImg &&
                             <Flex flexDir={"row"} w="100%" >
-                                <Image w="50%" h="100%" src={previewSource} alt="upload" />
+                                <Image w="50%" h="40vh" src={previewSource} alt="upload" />
                                 <VStack spacing="5" w="400px" border={"1px solid gray"} pl="3" pt="3" >
                                     <HStack spacing="5" w="100%" >
-                                        <Image w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
-                                        <Text fontWeight={"500"} fontSize={13} >User Name</Text>
+                                        <Avatar w="30px" h="30px" borderRadius={"50%"} src={userBoi.imageUrl} />
+                                        <Text fontWeight={"500"} fontSize={13}>{userBoi.username}</Text>
                                     </HStack>
 
                                     <Textarea ref={initialRef} w="100%" variant='unstyled' placeholder='Write a caption...' value={caption} onChange={({ target }) => setCaption(target.value)} _placeholder={{ color: "#a6a39c", fontSize: 16 }} />

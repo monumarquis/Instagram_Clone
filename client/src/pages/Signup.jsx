@@ -18,6 +18,7 @@ import {
 import { useState } from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { MdError } from 'react-icons/md';
 const initState = {
     email: "",
     password: "",
@@ -28,6 +29,8 @@ const Signup = () => {
     const toast = useToast()
     const [formData, setFormData] = useState(initState);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("");
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
     const navigate = useNavigate()
@@ -49,21 +52,18 @@ const Signup = () => {
                 status: 'success',
                 duration: 2000,
                 isClosable: true,
-              })
-              setLoading(false)
+            })
+            setLoading(false)
+            setErrorMessage("")
+            setError(false)
             navigate('/login')
 
         }
         catch ({ response: { data } }) {
             console.log(data.message);
+            setErrorMessage(data.message)
+            setError(true)
             setLoading(false)
-            toast({
-                title: "Something went wrong",
-                description:data.message ,
-                status: 'error',
-                duration: 2000,
-                isClosable: true,
-              })
         }
     };
     console.log(formData);
@@ -150,6 +150,12 @@ const Signup = () => {
                                 </InputGroup>
                                 <Text color="gray" fontSize={"11"} my="4">People who use our service may have uploaded your contact information to Instagram. Learn more</Text>
                                 <Text color="gray" fontSize={"11"} my="4">By signing up, you agree to our Terms, Privacy Policy and Cookies Policy.</Text>
+                                {error &&
+                                    <HStack w="100%" background={"red.100"} spacing={"2"} mt="5" p="2" >
+                                        <MdError color={"red"} />
+                                        <Text color={"red"} >{errorMessage}</Text>
+                                    </HStack>
+                                }
                                 <Button colorScheme="blue" mt="3" mb="3" type="submit" h="35px" width={"100%"} isLoading={loading} loadingText='Account is Creating'>
                                     Sign  up
                                 </Button>

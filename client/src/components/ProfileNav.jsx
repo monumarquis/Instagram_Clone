@@ -4,8 +4,8 @@ import NavHoverItem from './NavHoverItem'
 import { NavLink, useParams } from 'react-router-dom'
 
 const ProfileNav = ({ navSize, title, active, desc, route }) => {
-    let { userId } = useParams()
-    console.log(userId);
+    let { username } = useParams()
+    console.log(username);
     const [hover, sethover] = useState(false)
     const width = navSize === "small" ? "none" : "flex"
     return (

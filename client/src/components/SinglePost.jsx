@@ -15,8 +15,9 @@ import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs"
 import { SlPaperPlane, } from "react-icons/sl"
 import { GrEmoji, } from "react-icons/gr"
 import { VscBookmark, } from "react-icons/vsc"
+import { NavLink } from 'react-router-dom'
 
-const SinglePost = ({imageUrl,desc,likes,username,userImageUrl}) => {
+const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [liked, setliked] = useState(false)
     const handleLikes = () => {
@@ -28,10 +29,10 @@ const SinglePost = ({imageUrl,desc,likes,username,userImageUrl}) => {
             // border={"1px solid gray"}
             w="100%" mt="10" >
             <Flex flexDir={"row"} justifyContent={"space-between"} w="100%" >
-                <HStack spacing="5" ml="2" >
-                    <Avatar w="30px" h="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
-                    <Text fontWeight={"600"} >User Name</Text>
-                </HStack>
+                <NavLink to={`/${username}`} ><HStack spacing="5" ml="2" >
+                    <Avatar w="30px" h="30px" borderRadius={"50%"} src={userImageUrl} />
+                    <Text fontWeight={"600"} >{username}</Text>
+                </HStack></NavLink>
                 <IconButton fontSize="25px" background={"none"} _hover={{ background: "none" }} color="black" icon={<BiDotsHorizontalRounded />} />
             </Flex>
             <Image borderRadius="2px" my="2" border="0.2px solid #f5eeed" w="100%" h="90vh" src={imageUrl} alt="Post" />
@@ -45,7 +46,7 @@ const SinglePost = ({imageUrl,desc,likes,username,userImageUrl}) => {
                 <IconButton fontSize={["20px", "20px", "25px", "25px", "25px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="#363333" icon={<VscBookmark />} />
             </Flex>
             <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} fontSize="14" >{likes} likes</Text>
-            <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} >User name {desc}</Text>
+            <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} >{username} {desc}</Text>
             <Text my="1" ml={["4", "4", 3, 3, 3]} fontWeight={"500"} fontSize="13" >See Translation</Text>
             <Textarea ml={["4", "4", 3, 3, 3]} variant='unstyled' placeholder='Add a comment..' w="95%" _placeholder={{ color: "#a6a39c", fontSize: 13 }} />
             <Container maxW={["100%", "100%", "95%", "95%", "95%"]} centerContent>
@@ -67,8 +68,10 @@ const SinglePost = ({imageUrl,desc,likes,username,userImageUrl}) => {
                             <Flex flexDir={"column"} w="55%" mt="10">
                                 <Flex flexDir={"row"} justifyContent={"space-between"} w="100%" >
                                     <HStack spacing="5" ml="2" >
-                                        <Image w="50px" className="border_image" p="1" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
-                                        <Text fontWeight={"600"} >User Name</Text>
+                                        <Box className="border_image4" w="50px" h="50px" p="0.5" >
+                                            <Avatar w="100%" h="100%" objectFit="cover" borderRadius={"50%"} src={userImageUrl} />
+                                        </Box>
+                                        <Text fontWeight={"600"} >{username}</Text>
                                     </HStack>
                                     <IconButton fontSize="30px" mr="2" background={"none"} _hover={{ background: "none" }} color="black" icon={<BiDotsHorizontalRounded />} />
                                 </Flex>
@@ -79,31 +82,31 @@ const SinglePost = ({imageUrl,desc,likes,username,userImageUrl}) => {
                                         <Text fontWeight={"600"} >User Name</Text>
                                     </HStack>
                                     <HStack spacing="5" ml="2" my="2" >
-                                        <Avatar w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
+                                        <Avatar h="30px" w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
                                         <Text fontWeight={"600"} >User Name</Text>
                                     </HStack>
                                     <HStack spacing="5" ml="2" my="2" >
-                                        <Avatar w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
+                                        <Avatar h="30px" w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
                                         <Text fontWeight={"600"} >User Name</Text>
                                     </HStack>
                                     <HStack spacing="5" ml="2" my="2" >
-                                        <Avatar w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
+                                        <Avatar h="30px" w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
                                         <Text fontWeight={"600"} >User Name</Text>
                                     </HStack>
                                     <HStack spacing="5" ml="2" my="2" >
-                                        <Avatar w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
+                                        <Avatar h="30px" w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
                                         <Text fontWeight={"600"} >User Name</Text>
                                     </HStack>
                                     <HStack spacing="5" ml="2" my="2" >
-                                        <Avatar w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
+                                        <Avatar h="30px" w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
                                         <Text fontWeight={"600"} >User Name</Text>
                                     </HStack>
                                     <HStack spacing="5" ml="2" my="2" >
-                                        <Avatar w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
+                                        <Avatar h="30px" w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
                                         <Text fontWeight={"600"} >User Name</Text>
                                     </HStack>
                                     <HStack spacing="5" ml="2" my="2" >
-                                        <Avatar w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
+                                        <Avatar h="30px" w="30px" borderRadius={"50%"} src="https://avatars.githubusercontent.com/u/103979538?s=40&v=4" />
                                         <Text fontWeight={"600"} >User Name</Text>
                                     </HStack>
                                 </Flex>
