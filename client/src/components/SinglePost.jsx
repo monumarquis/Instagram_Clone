@@ -16,12 +16,29 @@ import { SlPaperPlane, } from "react-icons/sl"
 import { GrEmoji, } from "react-icons/gr"
 import { VscBookmark, } from "react-icons/vsc"
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { getRandomPost } from '../redux/randomPost/randomPost.actions'
 
-const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl }) => {
+const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const dispatch = useDispatch()
     const [liked, setliked] = useState(false)
-    const handleLikes = () => {
+    const handleLikes = async () => {
         setliked(!liked)
+        let likecount = likes
+        if (liked) {
+            likecount = likecount + 1
+        }
+        else likecount = likecount - 1
+        try {
+            let { data } = await axios.patch("http://localhost:8001/posts", { postId, likes: likecount })
+            dispatch(getRandomPost())
+            console.log(data)
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
     console.log(liked);
     return (
