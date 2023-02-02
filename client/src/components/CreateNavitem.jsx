@@ -30,7 +30,7 @@ import { SlLocationPin } from "react-icons/sl"
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRandomPost } from '../redux/randomPost/randomPost.actions';
-const fileTypes = ["JPEG", "PNG", "GIF"];
+const fileTypes = ["JPEG", "PNG", "GIF","EPS"];
 
 const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     const { userId } = useSelector((state) => state.auth)
@@ -57,11 +57,11 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
     };
     //  save details on backend
     const handleUploadImage = async () => {
-        console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
+        console.log({ userId, desc: caption, imageUrl: previewSource});
         setLoading(true)
         try {
 
-            let { data } = await axios.post("http://localhost:8001/posts", { userId, desc: caption, location, imageUrl: previewSource, likes: 0, })
+            let { data } = await axios.post("http://localhost:8001/posts", { userId, desc: caption, location, imageUrl: previewSource })
             toast({
                 title: data.message,
                 status: 'success',

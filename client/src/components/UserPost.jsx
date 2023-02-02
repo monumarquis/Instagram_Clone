@@ -22,7 +22,7 @@ const UserPost = () => {
     return (
         <Flex w="100%" border={"1px solid purple"} >
             {data.userPost.length === 0 ? <CreatePost /> : <SimpleGrid w="100%" columns={3} spacing={[0.5, 1, 3, 5, 8]}>
-                {data.userPost.map((el)=><UserPostSingle imageUrl={el.imageUrl} key={el.id} />)}
+                {data.userPost.map((el)=><UserPostSingle imageUrl={el.imageUrl} key={el._id} />)}
             </SimpleGrid>}
         </Flex>
     )

@@ -8,7 +8,7 @@ import {
     Input,
     Avatar,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiDotsHorizontalRounded } from "react-icons/bi"
 import { TbMessageCircle2, } from "react-icons/tb"
 import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs"
@@ -17,24 +17,22 @@ import { GrEmoji, } from "react-icons/gr"
 import { VscBookmark, } from "react-icons/vsc"
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { getRandomPost } from '../redux/randomPost/randomPost.actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { getRandomPost, getRandomPostWithoutreloading } from '../redux/randomPost/randomPost.actions'
 
 const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const dispatch = useDispatch()
+    const { userId } = useSelector((state) => state.auth)
     const [liked, setliked] = useState(false)
+    useEffect(() => {
+        setliked(likes.includes(userId)) 
+    }, [likes, userId])
     const handleLikes = async () => {
-        setliked(!liked)
-        let likecount = likes
-        if (liked) {
-            likecount = likecount + 1
-        }
-        else likecount = likecount - 1
         try {
-            let { data } = await axios.patch("http://localhost:8001/posts", { postId, likes: likecount })
-            dispatch(getRandomPost())
+            let { data } = await axios.put(`http://localhost:8001/posts/${postId}/like`, { userId })
             console.log(data)
+            dispatch(getRandomPostWithoutreloading())
         }
         catch (err) {
             console.log(err)
@@ -62,7 +60,7 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
                 </HStack>
                 <IconButton fontSize={["20px", "20px", "25px", "25px", "25px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="#363333" icon={<VscBookmark />} />
             </Flex>
-            <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} fontSize="14" >{likes} likes</Text>
+            <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} fontSize="14" >{likes.length} likes</Text>
             <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} >{username} {desc}</Text>
             <Text my="1" ml={["4", "4", 3, 3, 3]} fontWeight={"500"} fontSize="13" >See Translation</Text>
             <Textarea ml={["4", "4", 3, 3, 3]} variant='unstyled' placeholder='Add a comment..' w="95%" _placeholder={{ color: "#a6a39c", fontSize: 13 }} />
@@ -79,7 +77,7 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
                     <ModalBody p="0" pb="-10" >
                         <Flex h="80vh" flexDir="row" mb="-8" >
                             <Flex backgroundColor={"black"} alignItems={"center"} w="45%" flexDir={"column"} py="30px"  >
-                                <Image borderRadius="2px" h="70vh" src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674408571/cld-sample-3.jpg" alt="Post" />
+                                <Image borderRadius="2px" h="70vh" w="100%" src={imageUrl} alt="Post" />
                             </Flex>
 
                             <Flex flexDir={"column"} w="55%" mt="10">
@@ -136,7 +134,7 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
                                     </HStack>
                                     <IconButton fontSize={["20px", "20px", "25px", "25px", "25px"]} background={"none"} _hover={{ background: "none", color: "#95989c" }} color="#363333" icon={<VscBookmark />} />
                                 </Flex>
-                                <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} fontSize="14" >104 likes</Text>
+                                <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} fontSize="14" >{likes.length} likes</Text>
                                 <Divider w="100%" mt="3" />
                                 <HStack spacing="2" w="100%" m="auto" h="20px" alignItems={"center"} justifyContent={"center"} >
                                     <GrEmoji fontSize="20px" />

@@ -31,7 +31,7 @@ const ProfileAccount = () => {
                 </VStack>
                 <VStack spacing={0}>
                     <Text fontSize={16} fontWeight={500} >98.7k </Text>
-                    <Text fontSize={15} color="GrayText" fontWeight={400} >ollowers</Text>
+                    <Text fontSize={15} color="GrayText" fontWeight={400} >Followers</Text>
                 </VStack>
                 <VStack spacing={0}>
                     <Text fontSize={16} fontWeight={500} >0</Text>

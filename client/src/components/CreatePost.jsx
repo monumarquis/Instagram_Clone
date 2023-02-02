@@ -17,7 +17,7 @@ import {
     Input,
     Divider,
     useToast,
-    Spinner
+    Spinner,Avatar
 } from '@chakra-ui/react'
 import { FileUploader } from "react-drag-drop-files";
 import React, { useState } from 'react'
@@ -54,11 +54,11 @@ const CreatePost = () => {
     };
     //  save details on backend
     const handleUploadImage = async () => {
-        console.log({ userId, desc: caption, imageUrl: previewSource, likes: 0, });
+        console.log({ userId, desc: caption, imageUrl: previewSource });
         setLoading(true)
         try {
 
-            let { data } = await axios.post("http://localhost:8001/posts", { userId, location, desc: caption, imageUrl: previewSource, likes: 0, })
+            let { data } = await axios.post("http://localhost:8001/posts", { userId, location, desc: caption, imageUrl: previewSource })
             toast({
                 title: data.message,
                 status: 'success',

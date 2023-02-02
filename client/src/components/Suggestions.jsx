@@ -13,7 +13,7 @@ import SuggestionAvatar from "./SuggestionAvatar";
 import { useDispatch, useSelector } from "react-redux";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { LogOut } from "../redux/auth/auth.actions";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 import { getUserBoi } from "../redux/userBoi/userBoi.actions";
 
@@ -41,15 +41,16 @@ const Suggestions = () => {
         alignItems={"center"}
       >
         <HStack spacing="5">
-          <Avatar
-            w="65px"
-            h="65px"
-            objectFit={"cover"}
-            borderRadius="50%"
-            src={userBoi.imageUrl}
-            alt=""
-          />
-          <Text fontWeight="500">{userBoi.username}</Text>
+          <Link to={`/${username}`}>
+            <Avatar
+              w="65px"
+              h="65px"
+              objectFit={"cover"}
+              borderRadius="50%"
+              src={userBoi.imageUrl}
+              alt=""
+            /></Link>
+          <Link to={`/${username}`}><Text fontWeight="500">{userBoi.username}</Text></Link>
         </HStack>
         <Text fontWeight="500" color="blue" onClick={onOpen} cursor="pointer" >
           Switch
@@ -80,7 +81,7 @@ const Suggestions = () => {
       <Text fontWeight="500" color="#545151" fontSize={"11"}>
         © 2023 INSTAGRAM FROM MONU
       </Text>
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}  isCentered>
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent pb={loading && "10"} >
           <ModalHeader textAlign="center" >Switch Accounts</ModalHeader>
@@ -109,7 +110,7 @@ const Suggestions = () => {
               </Text>
             </Flex>
 
-            <Divider w="100%" mt={loading ? "10":"20"} />
+            <Divider w="100%" mt={loading ? "10" : "20"} />
             {loading ? <LoadingSpinner Sectionheight={"5px"} loaderWidth={"5px"} loaderHeight={"5px"} /> : <Text fontWeight="500" color="blue" textAlign={"center"} cursor="pointer" my="5"
               onClick={() => {
                 setloading(true)

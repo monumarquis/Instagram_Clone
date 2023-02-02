@@ -22,3 +22,21 @@ export const getRandomPost = () => async (dispatch) =>{
     
       }
 }
+export const getRandomPostWithoutreloading = () => async (dispatch) =>{
+      try {
+        const { data } = await axios.get(`http://localhost:8001/posts`);
+        console.log(data);
+        return dispatch({
+          type: RANDOM_POST_SUCCESS,
+          payload: data,
+        });
+      }
+      catch ({ response: { data: { message } } }) {
+        console.log(message);
+        return dispatch({
+          type: RANDOM_POST_ERROR,
+          payload: message,
+        });
+    
+      }
+}
