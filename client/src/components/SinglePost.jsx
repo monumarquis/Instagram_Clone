@@ -7,6 +7,8 @@ import {
     ModalCloseButton,
     Input,
     Avatar,
+    useToast,
+    Spinner
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { BiDotsHorizontalRounded } from "react-icons/bi"
@@ -18,16 +20,39 @@ import { VscBookmark, } from "react-icons/vsc"
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRandomPost, getRandomPostWithoutreloading } from '../redux/randomPost/randomPost.actions'
+import { getRandomPostWithoutreloading } from '../redux/randomPost/randomPost.actions'
 
 const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) => {
+    const toast = useToast()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const dispatch = useDispatch()
+    const [comment_desc, setComment] = useState("")
     const { userId } = useSelector((state) => state.auth)
     const [liked, setliked] = useState(false)
+    const [loading, setloading] = useState(false)
     useEffect(() => {
-        setliked(likes.includes(userId)) 
+        setliked(likes.some((el) => el._id === userId))
     }, [likes, userId])
+
+    const handlecomment = async () => {
+        setloading(true)
+        try {
+            let { data } = await axios.post("http://localhost:8001/comments", { userId, postId, comment_desc })
+            console.log(data)
+            setloading(false)
+            toast({
+                title: data.message,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+            })
+        }
+        catch (err) {
+            setloading(false)
+            console.log(err)
+        }
+    }
+    
     const handleLikes = async () => {
         try {
             let { data } = await axios.put(`http://localhost:8001/posts/${postId}/like`, { userId })
@@ -63,7 +88,12 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
             <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} fontSize="14" >{likes.length} likes</Text>
             <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} >{username} {desc}</Text>
             <Text my="1" ml={["4", "4", 3, 3, 3]} fontWeight={"500"} fontSize="13" >See Translation</Text>
-            <Textarea ml={["4", "4", 3, 3, 3]} variant='unstyled' placeholder='Add a comment..' w="95%" _placeholder={{ color: "#a6a39c", fontSize: 13 }} />
+            <HStack spacing="2" w="95%" m="auto"  alignItems={"top"} justifyContent={"center"} >
+                <Textarea variant='unstyled' placeholder='Add a comment..' value={comment_desc} onChange={({ target: { value } }) => setComment(value)} w="95%" _placeholder={{ color: "#a6a39c", fontSize: 13 }} />
+                {comment_desc !== "" && !loading && <Text cursor={"pointer"} color="blue" fontSize="14" fontWeight={500} onClick={handlecomment} >Post</Text>}
+                {loading && <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blackAlpha.200'  size='lg'/>}
+                <GrEmoji fontSize="20px" />
+            </HStack>
             <Container maxW={["100%", "100%", "95%", "95%", "95%"]} centerContent>
                 <Divider w="100%" bordeColor="black" mt="5" borderWidth="0.5px" />
             </Container>
@@ -138,8 +168,9 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
                                 <Divider w="100%" mt="3" />
                                 <HStack spacing="2" w="100%" m="auto" h="20px" alignItems={"center"} justifyContent={"center"} >
                                     <GrEmoji fontSize="20px" />
-                                    <Input placeholder="Add comment.." variant="flushed" w="80%" />
-                                    <Text color="blue" fontSize="14" >Post</Text>
+                                    <Input placeholder="Add comment.." value={comment_desc} onChange={({ target: { value } }) => setComment(value)} variant="flushed" w="80%" />
+                                    {loading ? <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blackAlpha.200'  size='lg'/> :
+                                    <Text cursor={"pointer"}  color="blue" fontSize="14" onClick={handlecomment} >Post</Text>}
                                 </HStack>
                             </Flex >
                         </Flex>

@@ -17,7 +17,7 @@ const ProfileBoiData = () => {
     const [isFollowed, setIsfollowed] = useState(false)
     const [loading, setLoading] = useState(false)
     const { userBoi } = data
-    console.log(isFollowed,"isFollowed");
+    console.log(isFollowed, "isFollowed");
     let isAuthUser = username === auth.username
     // console.log("isAuthUser", isAuthUser);
     const handleFollower = async () => {
@@ -43,8 +43,8 @@ const ProfileBoiData = () => {
     }, [username])
 
     useEffect(() => {
-        userBoi.followers && setIsfollowed(userBoi.followers.includes(auth.userId))
-    }, [userBoi.followers,userBoi])
+        userBoi.followers && setIsfollowed(userBoi.followers.some((el) => el._id === auth.userId))
+    }, [userBoi.followers, userBoi])
 
     return (
         <Skeleton isLoaded={!data.loading} >
@@ -75,8 +75,8 @@ const ProfileBoiData = () => {
                     </HStack>
                     <HStack spacing={10} display={['none', 'none', 'flex', 'flex', 'flex']} mb="6" >
                         <Text fontSize={16} fontWeight={500} >{userPost.length} <span style={{ color: "GrayText" }} >posts</span></Text>
-                        <Text fontSize={16} fontWeight={500} >{userBoi.followers ? userBoi.followers.length:"0"} <span style={{ color: "GrayText" }}>Followers</span></Text>
-                        <Text fontSize={16} fontWeight={500} >{userBoi.following ? userBoi.following.length:"0"} <span style={{ color: "GrayText" }}>Following</span></Text>
+                        <Text fontSize={16} fontWeight={500} >{userBoi.followers ? userBoi.followers.length : "0"} <span style={{ color: "GrayText" }}>Followers</span></Text>
+                        <Text fontSize={16} fontWeight={500} >{userBoi.following ? userBoi.following.length : "0"} <span style={{ color: "GrayText" }}>Following</span></Text>
                     </HStack>
                     <Flex flexDir={"column"} display={['none', 'none', 'flex', 'flex', 'flex']} justifyContent={"left"} >
                         <Text fontSize={15} fontWeight={500} >{userBoi.realname}</Text>
