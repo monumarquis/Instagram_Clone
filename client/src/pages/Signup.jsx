@@ -16,9 +16,10 @@ import {
     useToast
 } from '@chakra-ui/react'
 import { useState } from "react";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { MdError } from 'react-icons/md';
+import { useSelector } from 'react-redux';
 const initState = {
     email: "",
     password: "",
@@ -33,6 +34,7 @@ const Signup = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
+    const data = useSelector((state) => state.auth)
     const navigate = useNavigate()
     const handleChange = (e) => {
         setFormData((prevFormData) => ({
@@ -40,6 +42,16 @@ const Signup = () => {
             [e.target.name]: e.target.value
         }));
     };
+    if (data.isAuth) {
+        toast({
+            title: data.message,
+            description: "hurray ! Already logged in",
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+        })
+        return <Navigate to="/" />
+    }
     const handelForm = async (e) => {
         e.preventDefault();
         setLoading(true)

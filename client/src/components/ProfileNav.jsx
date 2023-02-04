@@ -54,7 +54,7 @@ const ProfileNav = ({ navSize, title, active, desc, route }) => {
                     flexDir={"row"}
                     display={hover ? "flex" : "none"}
                 >
-                    <NavHoverItem desc={desc} title={title} />
+                    {/* <NavHoverItem desc={desc} title={title} /> */}
                 </Flex>
             </Menu>
 

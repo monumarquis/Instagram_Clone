@@ -49,7 +49,7 @@ const Navitem = ({ navSize, title, icon, active, desc, route }) => {
                     flexDir={"row"}
                     display={hover ? "flex" : "none"}
                 >
-                    <NavHoverItem desc={desc} title={title} icon={icon} />
+                    {/* <NavHoverItem desc={desc} title={title} icon={icon} /> */}
                 </Flex>
             </Menu>
 

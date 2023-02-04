@@ -108,7 +108,7 @@ const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
                     flexDir={"row"}
                     display={hover ? "flex" : "none"}
                 >
-                    <NavHoverItem desc={desc} title={title} icon={icon} />
+                    {/* <NavHoverItem desc={desc} title={title} icon={icon} /> */}
                 </Flex>
             </Menu>
             <Drawer

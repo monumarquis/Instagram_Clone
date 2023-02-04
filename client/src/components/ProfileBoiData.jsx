@@ -15,9 +15,10 @@ const ProfileBoiData = () => {
     const data = useSelector((state) => state.userBoi)
     const auth = useSelector((state) => state.auth)
     const [isFollowed, setIsfollowed] = useState(false)
+    const [existinfollowers, setexistinfollowers] = useState(false)
     const [loading, setLoading] = useState(false)
     const { userBoi } = data
-    console.log(isFollowed, "isFollowed");
+    console.log(isFollowed, "isFollowed",existinfollowers,"existinfollowers");
     let isAuthUser = username === auth.username
     // console.log("isAuthUser", isAuthUser);
     const handleFollower = async () => {
@@ -44,6 +45,7 @@ const ProfileBoiData = () => {
 
     useEffect(() => {
         userBoi.followers && setIsfollowed(userBoi.followers.some((el) => el._id === auth.userId))
+        userBoi.following && setexistinfollowers(userBoi.following.some((el) => el._id === auth.userId))
     }, [userBoi.followers, userBoi])
 
     return (
@@ -68,7 +70,7 @@ const ProfileBoiData = () => {
                     {/* for Mobile  */}
                     <HStack spacing={[3, 3, 3, 3, 5]} mb="10" display={['none', 'none', 'flex', 'flex', 'flex']}>
                         <Text fontSize={18} fontWeight={500} >{userBoi.username}</Text>
-                        <Button h="30px" isLoading={loading} onClick={isAuthUser ? handleEditProfile : handleFollower} colorScheme={isAuthUser ? "gray" : isFollowed ? "gray" : "messenger"} >{isAuthUser ? "Edit Profile" : isFollowed ? "Following" : "Follow"}</Button>
+                        <Button h="30px" isLoading={loading} onClick={isAuthUser ? handleEditProfile : handleFollower} colorScheme={isAuthUser ? "gray" : isFollowed ? "gray" : "messenger"} >{isAuthUser ? "Edit Profile" : isFollowed ? "Following" :existinfollowers ? "Follow Back" : "Follow"}</Button>
                         {!isAuthUser && <Button h="30px" colorScheme={"messenger"} >Message</Button>}
                         {!isAuthUser && <IconButton h="30px" background={"#fff"} _hover={{ background: "#e8e6e6", }} color="gray.500" icon={<MdPersonAddAlt1 />} />}
                         <IconButton fontSize="22px" background={"none"} _hover={{ background: "none" }} color="black" icon={isAuthUser ? <RiSettings5Fill /> : <BiDotsHorizontalRounded />} />

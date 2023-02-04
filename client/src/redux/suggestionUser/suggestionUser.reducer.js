@@ -1,35 +1,35 @@
-import { COMMENT_POST_ERROR, COMMENT_POST_REQUEST, COMMENT_POST_SUCCESS } from "./postComments.types"
+import { SUGGESTION_USER_ERROR, SUGGESTION_USER_REQUEST, SUGGESTION_USER_SUCCESS } from "./suggestionUser.types"
 
 const init = {
-    loading: false,
     error: false,
-    postComment: []
+    loading: true,
+    suggestionUser: []
 }
 
-export const postCommentReducer = (state = init, { type, payload }) => {
+export const suggestionUserReducer = (state = init, { type, payload }) => {
     switch (type) {
-        case COMMENT_POST_REQUEST: {
+        case SUGGESTION_USER_REQUEST: {
             return {
                 ...state,
                 loading: true,
                 error: false,
-                postComment: []
+                suggestionUser: []
             }
         }
-        case COMMENT_POST_SUCCESS: {
+        case SUGGESTION_USER_SUCCESS: {
             return {
                 ...state,
                 loading: false,
                 error: false,
-                postComment: payload
+                suggestionUser: payload
             }
         }
-        case COMMENT_POST_ERROR: {
+        case SUGGESTION_USER_ERROR: {
             return {
                 ...state,
                 loading: false,
                 error: true,
-                postComment: []
+                suggestionUser: []
             }
         }
 

@@ -16,17 +16,24 @@ import { LogOut } from "../redux/auth/auth.actions";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 import { getUserBoi } from "../redux/userBoi/userBoi.actions";
+import SuggestionSkeleton from "./SuggestionSkeleton";
+import { getUserSuggestion } from "../redux/suggestionUser/suggestionUser.actions";
 
 const Suggestions = () => {
-  const [loading, setloading] = useState(false)
+  const [logoutLoading, setloading] = useState(false)
   const dispatch = useDispatch()
-  const { userBoi } = useSelector((state) => state.userBoi)
+  const { userBoi, loading } = useSelector((state) => state.userBoi)
   const { username } = useSelector((state) => state.auth)
+  const data = useSelector((state) => state.auth)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const nav = useNavigate()
   useEffect(() => {
     dispatch(getUserBoi(username))
+    dispatch(getUserSuggestion(userBoi._id))
   }, [])
+  if (loading) {
+    return <SuggestionSkeleton />
+  }
   return (
     <Box
       w="30%"
@@ -83,7 +90,7 @@ const Suggestions = () => {
       </Text>
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent pb={loading && "10"} >
+        <ModalContent pb={logoutLoading && "10"} >
           <ModalHeader textAlign="center" >Switch Accounts</ModalHeader>
           <ModalCloseButton />
           <ModalBody >
@@ -110,8 +117,8 @@ const Suggestions = () => {
               </Text>
             </Flex>
 
-            <Divider w="100%" mt={loading ? "10" : "20"} />
-            {loading ? <LoadingSpinner Sectionheight={"5px"} loaderWidth={"5px"} loaderHeight={"5px"} /> : <Text fontWeight="500" color="blue" textAlign={"center"} cursor="pointer" my="5"
+            <Divider w="100%" mt={logoutLoading ? "10" : "20"} />
+            {logoutLoading ? <LoadingSpinner Sectionheight={"5px"} loaderWidth={"5px"} loaderHeight={"5px"} /> : <Text fontWeight="500" color="blue" textAlign={"center"} cursor="pointer" my="5"
               onClick={() => {
                 setloading(true)
                 setTimeout(() => {

@@ -34,7 +34,7 @@ const Login = () => {
     const handleClick = () => setShow(!show);
 
     useEffect(() => {
-        dispatch(LogInDefault())
+        !data.isAuth && dispatch(LogInDefault())
     },[])
     if (data.isAuth) {
         toast({
