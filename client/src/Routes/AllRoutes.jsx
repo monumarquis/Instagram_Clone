@@ -10,6 +10,7 @@ import UserReels from '../components/UserReels';
 import UserTaggedpost from '../components/UserTaggedpost';
 import PrivateRoutes from './PrivateRoutes';
 import { useSelector } from 'react-redux';
+import AccountEdit from '../pages/AccountEdit';
 const AllRoutes = () => {
   const location = useLocation()
   const { isAuth } = useSelector((state) => state.auth)
@@ -24,6 +25,7 @@ const AllRoutes = () => {
     <Flex w={loginwidth} ml={loginMarginLeft} flexDir={"column"} border={"1px solid red"}>
       <Routes>
         <Route path='/' element={<PrivateRoutes><Home /></PrivateRoutes>}></Route>
+        <Route path='/account/edit' element={<PrivateRoutes><AccountEdit /></PrivateRoutes>}></Route>
         <Route path='/:username' element={<PrivateRoutes><ProfileAccount /></PrivateRoutes>}>
           <Route path="" element={<PrivateRoutes><UserPost /></PrivateRoutes>}></Route>
           <Route path="reels" element={<PrivateRoutes><UserReels /></PrivateRoutes>}></Route>

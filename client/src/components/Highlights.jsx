@@ -63,7 +63,7 @@ function SamplePrevArrow(props) {
 }
 const HighLights = () => {
   return (
-    <Box w="100%" border="1px solid blue"  mt="5" pl="5" >
+    <Box w="100%" border="1px solid blue.400"  mt="5" pl="5" >
       <Slider {...settings}>
         <VStack borderRadius={"50%"}  >
           <Box className="border_image3" w="90px" h="90px" display="flex" justifyContent={"center"} alignItems={"center"}><BsPlusLg color="gray.100" fontSize="35" /></Box>

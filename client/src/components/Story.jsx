@@ -68,7 +68,7 @@ const Story = () => {
         <VStack borderRadius={"50%"} pos={"relative"}  >
           <Avatar w="70px" h="70px" objectFit="cover" p="1" borderRadius={"50%"} src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674459330/odcnwktfhhbghulzlwte.png" />
           <Text pl="2" fontWeight="500" fontSize="12" >Your Story</Text>
-          <Box pos="absolute" bottom="5" right='3' ><HiPlusCircle color='blue' fontSize={30} /></Box>
+          <Box pos="absolute" bottom="5" right='3' ><HiPlusCircle color='blue.400' fontSize={30} /></Box>
         </VStack>
         <VStack borderRadius={"50%"}   >
           <Image w="70px" h="70px" objectFit="cover" className="border_image" p="1" borderRadius={"50%"} src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674459330/odcnwktfhhbghulzlwte.png" />

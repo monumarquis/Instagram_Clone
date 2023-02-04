@@ -11,7 +11,7 @@ const SuggestionAvatar = () => {
         <Avatar w="40px" h="40px" objectFit={"cover"} borderRadius="50%" src="https://res.cloudinary.com/duw6u7axs/image/upload/v1674459330/odcnwktfhhbghulzlwte.png" alt="" />
         <Text fontWeight="500" fontSize={"14"} >Username</Text>
       </HStack></NavLink>
-      <Text fontWeight="500" color="blue" fontSize={"12"} >Follow</Text>
+      <Text fontWeight="500" color="blue.400" fontSize={"12"} >Follow</Text>
     </Flex>
   )
 }

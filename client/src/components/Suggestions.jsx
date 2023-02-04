@@ -59,7 +59,7 @@ const Suggestions = () => {
             /></Link>
           <Link to={`/${username}`}><Text fontWeight="500">{userBoi.username}</Text></Link>
         </HStack>
-        <Text fontWeight="500" color="blue" onClick={onOpen} cursor="pointer" >
+        <Text fontWeight="500" color="blue.400" onClick={onOpen} cursor="pointer" >
           Switch
         </Text>
       </Flex>
@@ -112,13 +112,13 @@ const Suggestions = () => {
                 />
                 <Text fontWeight="500">{userBoi.username}</Text>
               </HStack>
-              <Text fontWeight="500" color="blue" onClick={onOpen}  >
+              <Text fontWeight="500" color="blue.400" onClick={onOpen}  >
                 <BsCheckCircleFill fontSize={25} />
               </Text>
             </Flex>
 
             <Divider w="100%" mt={logoutLoading ? "10" : "20"} />
-            {logoutLoading ? <LoadingSpinner Sectionheight={"5px"} loaderWidth={"5px"} loaderHeight={"5px"} /> : <Text fontWeight="500" color="blue" textAlign={"center"} cursor="pointer" my="5"
+            {logoutLoading ? <LoadingSpinner Sectionheight={"5px"} loaderWidth={"5px"} loaderHeight={"5px"} /> : <Text fontWeight="500" color="blue.400" textAlign={"center"} cursor="pointer" my="5"
               onClick={() => {
                 setloading(true)
                 setTimeout(() => {

@@ -100,7 +100,7 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
             {Comment.postComment.length > 0 && <Text my="1" ml={["4", "4", 3, 3, 3]} fontWeight={"400"} fontSize="13" color={"#6e6d6d"}  onClick={onOpen} cursor={"pointer"} >Show All {Comment.postComment.length} Comments</Text>}
             <HStack spacing="2" w="95%" m="auto" alignItems={"top"} justifyContent={"center"} >
                 <Textarea variant='unstyled' placeholder='Add a comment..' value={comment_desc} onChange={({ target: { value } }) => setComment(value)} w="95%" _placeholder={{ color: "#a6a39c", fontSize: 13 }} />
-                {comment_desc !== "" && !loading && <Text cursor={"pointer"} color="blue" fontSize="14" fontWeight={500} onClick={handlecomment} >Post</Text>}
+                {comment_desc !== "" && !loading && <Text cursor={"pointer"} color="blue.400" fontSize="14" fontWeight={500} onClick={handlecomment} >Post</Text>}
                 {loading && <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blackAlpha.200' size='lg' />}
                 <GrEmoji fontSize="20px" />
             </HStack>
@@ -163,7 +163,7 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
                                     <GrEmoji fontSize="20px" />
                                     <Input ref={inputRef} placeholder="Add comment.." value={comment_desc} onChange={({ target: { value } }) => setComment(value)} variant="flushed" w="80%" />
                                     {loading ? <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blackAlpha.200' size='lg' /> :
-                                        <Text cursor={"pointer"} color="blue" fontSize="14" onClick={handlecomment} >Post</Text>}
+                                        <Text cursor={"pointer"} color="blue.400" fontSize="14" onClick={handlecomment} >Post</Text>}
                                 </HStack>
                             </Flex >
                         </Flex>

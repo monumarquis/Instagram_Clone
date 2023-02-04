@@ -4,12 +4,13 @@ import React, { useEffect, useState } from 'react'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserBoi, getUserBoiWithOutReloading } from '../redux/userBoi/userBoi.actions'
-import { useParams } from 'react-router-dom'
+import {  useNavigate, useParams } from 'react-router-dom'
 import { RiSettings5Fill } from 'react-icons/ri'
 import axios from 'axios'
 
 const ProfileBoiData = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { username } = useParams()
     const { userPost } = useSelector((state) => state.userPost)
     const data = useSelector((state) => state.userBoi)
@@ -18,7 +19,7 @@ const ProfileBoiData = () => {
     const [existinfollowers, setexistinfollowers] = useState(false)
     const [loading, setLoading] = useState(false)
     const { userBoi } = data
-    console.log(isFollowed, "isFollowed",existinfollowers,"existinfollowers");
+    console.log(isFollowed, "isFollowed", existinfollowers, "existinfollowers");
     let isAuthUser = username === auth.username
     // console.log("isAuthUser", isAuthUser);
     const handleFollower = async () => {
@@ -36,7 +37,9 @@ const ProfileBoiData = () => {
         }
     }
     const handleEditProfile = async () => {
-
+        console.log("ecit")
+        navigate("/account/edit")
+        return 
     }
 
     useEffect(() => {
@@ -70,7 +73,7 @@ const ProfileBoiData = () => {
                     {/* for Mobile  */}
                     <HStack spacing={[3, 3, 3, 3, 5]} mb="10" display={['none', 'none', 'flex', 'flex', 'flex']}>
                         <Text fontSize={18} fontWeight={500} >{userBoi.username}</Text>
-                        <Button h="30px" isLoading={loading} onClick={isAuthUser ? handleEditProfile : handleFollower} colorScheme={isAuthUser ? "gray" : isFollowed ? "gray" : "messenger"} >{isAuthUser ? "Edit Profile" : isFollowed ? "Following" :existinfollowers ? "Follow Back" : "Follow"}</Button>
+                        <Button h="30px" isLoading={loading} onClick={isAuthUser ? handleEditProfile : handleFollower} colorScheme={isAuthUser ? "gray" : isFollowed ? "gray" : "messenger"} >{isAuthUser ? "Edit Profile" : isFollowed ? "Following" : existinfollowers ? "Follow Back" : "Follow"}</Button>
                         {!isAuthUser && <Button h="30px" colorScheme={"messenger"} >Message</Button>}
                         {!isAuthUser && <IconButton h="30px" background={"#fff"} _hover={{ background: "#e8e6e6", }} color="gray.500" icon={<MdPersonAddAlt1 />} />}
                         <IconButton fontSize="22px" background={"none"} _hover={{ background: "none" }} color="black" icon={isAuthUser ? <RiSettings5Fill /> : <BiDotsHorizontalRounded />} />
