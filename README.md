@@ -66,6 +66,17 @@ This project is just for educational purpose.
 
 <br />
 
+## 🚀 User Features
+- Login and Create User Account
+- Random Post
+- Post Add and Remove 
+- Likes & Comments can Add and Remove  
+- Create Post 
+- Search other user
+- Visit othrer's Profile
+- Edit Own Profile
+
+<br />
 ## Glimpses of Instagram Clone 🙈 :
 
 
