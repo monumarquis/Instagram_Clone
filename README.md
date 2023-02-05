@@ -42,7 +42,7 @@ on others' pics and follow-unfollow as well </h3>
 
 <br />
 <h3 align="center"><a href="https://instagram-clone-six-flame.vercel.app/"><strong>Want to see live preview »</strong></a></h3>
-Note:- Demo link will not be open in chrome browser due to some issue but it can be see in any browser except chrome.  I make sure that you would be glad to see it live 
+<h3>Note:- Demo link will not be open in chrome browser due to some issue but it can be see in any browser except chrome.  I make sure that you would be glad to see it live</h3> 
 <h3 align="center"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7010967664357457920/"><strong>Demo Video »</strong></a></h3>
 <p align="center">
   <br />&#10023;
