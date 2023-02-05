@@ -22,7 +22,9 @@ const AllRoutes = () => {
   let loginwidth = isAuth ? ["100%", "100%", w, "81.3%", "81.3%"] : ["100%","100%","100%","100%","100%"]
   let loginMarginLeft = isAuth ? ["0", "0", ml, "20%", "20%"] : ["0","0","0","0","0"]
   return (
-    <Flex w={loginwidth} ml={loginMarginLeft} flexDir={"column"} border={"1px solid red"}>
+    <Flex w={loginwidth} ml={loginMarginLeft} flexDir={"column"} 
+    // border={"1px solid red"}
+    >
       <Routes>
         <Route path='/' element={<PrivateRoutes><Home /></PrivateRoutes>}></Route>
         <Route path='/account/edit' element={<PrivateRoutes><AccountEdit /></PrivateRoutes>}></Route>

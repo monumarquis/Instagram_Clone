@@ -53,7 +53,7 @@ const ProfileBoiData = () => {
 
     return (
         <Skeleton isLoaded={!data.loading} >
-            <Flex w={["100%", "100%", "100%", "90%", "90%"]} m="auto" border="1px solid blue" py="10" flexDir={"row"} justifyContent={"space-evenly"} alignItems={"center"} >
+            <Flex w={["100%", "100%", "100%", "90%", "90%"]} m="auto"  py="10" flexDir={"row"} justifyContent={"space-evenly"} alignItems={"center"} >
                 <Box className="border_image2" w={["100px", "100px", "170px", "170px", "170px"]} h={["100px", "100px", "170px", "170px", "170px"]} p="1" >
                     <Avatar w="100%" h="100%" objectFit="cover" borderRadius={"50%"} src={userBoi.imageUrl} />
                 </Box>
@@ -86,9 +86,8 @@ const ProfileBoiData = () => {
                     <Flex flexDir={"column"} display={['none', 'none', 'flex', 'flex', 'flex']} justifyContent={"left"} >
                         <Text fontSize={15} fontWeight={500} >{userBoi.realname}</Text>
                         <Text fontSize={14} fontWeight={500} color={"gray"} >profession</Text>
-                        <Text fontSize={14} fontWeight={400} >Let's WIN it together!</Text>
-                        <Text fontSize={14} fontWeight={400} >📚 English Battle 📚</Text>
-                        <Text fontSize={14} fontWeight={400} >Keep crawling towards ur Aim!</Text>
+                        <Text fontSize={14} fontWeight={400} w="70%" >{userBoi.boi}</Text>
+                       
                     </Flex>
                 </Flex>
             </Flex>

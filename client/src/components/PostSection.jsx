@@ -15,7 +15,7 @@ const PostSection = () => {
     }, [])
     return (
         <Box w="100%"
-            border="1px solid green"
+            // border="1px solid green"
         >
             {data.loading ? <LoadingSpinner Sectionheight={"50px"} loaderWidth={"50px"} loaderHeight={"50px"} /> :
                 data.randomPost.map((el) => <SinglePost imageUrl={el.imageUrl}

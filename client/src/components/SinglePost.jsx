@@ -97,7 +97,7 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
             {likes.length > 0 && <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} fontSize="14" >{likes.length} likes</Text>}
             <Text my="1.2" ml={["4", "4", "3", 3, 3]} fontWeight={"600"} >{username} <span style={{ "color": "#3d3d3d", "fontWeight": "400" }} >{desc}</span></Text>
             <Text my="1" ml={["4", "4", 3, 3, 3]} fontWeight={"500"} fontSize="13" >See Translation</Text>
-            {Comment.postComment.length > 0 && <Text my="1" ml={["4", "4", 3, 3, 3]} fontWeight={"400"} fontSize="13" color={"#6e6d6d"}  onClick={onOpen} cursor={"pointer"} >Show All {Comment.postComment.length} Comments</Text>}
+            {Comment.postComment.length > 0 && <Text my="1" ml={["4", "4", 3, 3, 3]} fontWeight={"400"} fontSize="13" color={"#6e6d6d"}  onClick={onOpen} cursor={"pointer"} >Show All Comments</Text>}
             <HStack spacing="2" w="95%" m="auto" alignItems={"top"} justifyContent={"center"} >
                 <Textarea variant='unstyled' placeholder='Add a comment..' value={comment_desc} onChange={({ target: { value } }) => setComment(value)} w="95%" _placeholder={{ color: "#a6a39c", fontSize: 13 }} />
                 {comment_desc !== "" && !loading && <Text cursor={"pointer"} color="blue.400" fontSize="14" fontWeight={500} onClick={handlecomment} >Post</Text>}
@@ -131,7 +131,9 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
                                     <IconButton fontSize="30px" mr="2" background={"none"} _hover={{ background: "none" }} color="black" icon={<BiDotsHorizontalRounded />} />
                                 </Flex>
                                 <Divider w="100%" mt="3" />
-                                <Flex flexDir="column" className="scroll-hide" w="100%" maxH="250px" border="1px solid red" >
+                                <Flex flexDir="column" className="scroll-hide" w="100%" maxH="250px" 
+                                // border="1px solid red" 
+                                >
                                     <HStack spacing="5" ml="2" my="2" >
                                         <Avatar w="50px" className="border_image" p="1" borderRadius={"50%"} src={userImageUrl} />
                                         <Text fontWeight={"600"} >{username}</Text>

@@ -47,7 +47,7 @@ const CreatePost = () => {
     const [uploadImg, setuploadImg] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const handleInput = (file) => {
-        // console.log(file[0], 'input,details');
+        console.log(file[0], 'input,details');
         steremovefile(false)
         setuploadImg(false)
         previewFile(file[0]);

@@ -24,7 +24,7 @@ const Suggestions = () => {
   const dispatch = useDispatch()
   const { userBoi, loading } = useSelector((state) => state.userBoi)
   const { username } = useSelector((state) => state.auth)
-  const data = useSelector((state) => state.auth)
+  const { suggestionUser } = useSelector((state) => state.suggestionUser)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const nav = useNavigate()
   useEffect(() => {
@@ -37,7 +37,7 @@ const Suggestions = () => {
   return (
     <Box
       w="30%"
-      border={"1px solid orange"}
+      // border={"1px solid orange"}
       display={["none", "none", "none", "initial", "initial"]}
       mt="10"
     >
@@ -77,10 +77,8 @@ const Suggestions = () => {
           See All
         </Text>
       </HStack>
-      <SuggestionAvatar />
-      <SuggestionAvatar />
-      <SuggestionAvatar />
-      <SuggestionAvatar />
+      {suggestionUser && suggestionUser.length > 0 && suggestionUser.map((el) => <SuggestionAvatar username={el.username} imageUrl={el.imageUrl} />)}
+
       <Text my="3" fontWeight="400" color="#8c8787" fontSize={"13"}>
         About | Help | PressAPI | JobsPrivacy | Terms | Locations Language
         English (UK)

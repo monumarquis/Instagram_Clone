@@ -20,9 +20,9 @@ const UserPost = () => {
         return <LoadingSpinner Sectionheight={"50px"} loaderWidth={"50px"} loaderHeight={"50px"} />
     }
     return (
-        <Flex w="100%" border={"1px solid purple"} >
+        <Flex w="100%" >
             {data.userPost.length === 0 ? <CreatePost /> : <SimpleGrid w="100%" columns={3} spacing={[0.5, 1, 3, 5, 8]}>
-                {data.userPost.map((el)=><UserPostSingle postId={el._id} likes={el.likes} imageUrl={el.imageUrl} key={el._id} />)}
+                {data.userPost.map((el)=><UserPostSingle username={el.user.username} userImageUrl={el.user.imageUrl} desc={el.description} postId={el._id} likes={el.likes} imageUrl={el.imageUrl} key={el._id} />)}
             </SimpleGrid>}
         </Flex>
     )
