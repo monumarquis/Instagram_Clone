@@ -11,7 +11,7 @@ export const getPostComment = (creds) => async (dispatch) => {
     }
     dispatch({ type: COMMENT_POST_REQUEST })
     try {
-        let { data } = await axios.get("http://localhost:8001/comments", config)
+        let { data } = await axios.get("https://nem-insta-backend.onrender.com/comments", config)
         return dispatch({ type: COMMENT_POST_SUCCESS, payload: data })
     }
     catch (err) {

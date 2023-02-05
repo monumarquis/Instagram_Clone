@@ -11,7 +11,7 @@ export const getUserPost = (creds) => async (dispatch) => {
     };
     dispatch({ type: USER_POST_REQUEST })
     try {
-        const { data } = await axios.get(`http://localhost:8001/posts/userPost`, config);
+        const { data } = await axios.get(`https://nem-insta-backend.onrender.com/posts/userPost`, config);
         console.log(data);
         return dispatch({
             type: USER_POST_SUCCESS,
@@ -33,7 +33,7 @@ export const getUserPostWithoutReloading = (creds) => async (dispatch) => {
         }
     };
     try {
-        const { data } = await axios.get(`http://localhost:8001/posts/userPost`, config);
+        const { data } = await axios.get(`https://nem-insta-backend.onrender.com/posts/userPost`, config);
         console.log(data);
         return dispatch({
             type: USER_POST_SUCCESS,

@@ -1,11 +1,17 @@
 import { Flex, Text, Link, Menu, MenuButton, Avatar } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavHoverItem from './NavHoverItem'
 import { NavLink, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserBoi } from '../redux/userBoi/userBoi.actions'
 
 const ProfileNav = ({ navSize, title, active, desc, route }) => {
-    let { username } = useParams()
-    console.log(username);
+    const { userBoi } = useSelector((state) => state.userBoi)
+    const dispatch = useDispatch()
+    const auth = useSelector((state) => state.auth)
+    useEffect(() => {
+        dispatch(getUserBoi(auth.username))
+    }, [auth.username])
     const [hover, sethover] = useState(false)
     const width = navSize === "small" ? "none" : "flex"
     return (
@@ -37,7 +43,7 @@ const ProfileNav = ({ navSize, title, active, desc, route }) => {
                     <NavLink to={route} >
                         <MenuButton w={["50px", "50px", "50px", navSize === "small" ? "100%" : "210px", navSize === "small" ? "100%" : "210px"]} fontSize="xl" color={active ? "#f5f5f5" : "black"}  >
                             <Flex alignItems={"center"} >
-                                <Avatar src="" w={"6"} h="6" />
+                                <Avatar src={userBoi.imageUrl !== "" && userBoi.imageUrl} w={"6"} h="6" />
                                 <Text ml="5" display={["none", "none", "none", width, width]} fontSize={"16px"} >{title}</Text>
                             </Flex>
                         </MenuButton>

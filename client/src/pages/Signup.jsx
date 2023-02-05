@@ -56,7 +56,7 @@ const Signup = () => {
         e.preventDefault();
         setLoading(true)
         try {
-            let { data } = await axios.post('http://localhost:8001/users/signup', formData)
+            let { data } = await axios.post('https://nem-insta-backend.onrender.com/users/signup', formData)
             console.log(data);
             toast({
                 title: data.message,

@@ -12,7 +12,7 @@ export const getUserSuggestion = (creds) => async (dispatch) => {
     console.log(creds,"redux")
     dispatch({ type: SUGGESTION_USER_REQUEST })
     try {
-        let { data } = await axios.get("http://localhost:8001/users", config)
+        let { data } = await axios.get("https://nem-insta-backend.onrender.com/users", config)
         return dispatch({ type: SUGGESTION_USER_SUCCESS, payload: data })
     }
     catch (err) {

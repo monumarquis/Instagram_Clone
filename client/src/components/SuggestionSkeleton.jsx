@@ -4,7 +4,6 @@ import React from 'react'
 const SuggestionSkeleton = () => {
     return (
         <Flex w="30%"
-            border={"1px solid orange"}
             display={["none", "none", "none", "initial", "initial"]}
             mt="10">
 

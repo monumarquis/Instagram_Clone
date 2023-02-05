@@ -7,7 +7,7 @@ const ImageUpload = () => {
   const UploadImage = async (base64EncodedImage) => {
     console.log(base64EncodedImage);
     try {
-      let {data}  = await axios.post(`http://localhost:8001/posts`, {
+      let {data}  = await axios.post(`https://nem-insta-backend.onrender.com/posts`, {
         data: previewSource,
       });
       console.log(data.message);

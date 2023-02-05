@@ -58,7 +58,7 @@ const CreatePost = () => {
         setLoading(true)
         try {
 
-            let { data } = await axios.post("http://localhost:8001/posts", { userId, location, desc: caption, imageUrl: previewSource })
+            let { data } = await axios.post("https://nem-insta-backend.onrender.com/posts", { userId, location, desc: caption, imageUrl: previewSource })
             toast({
                 title: data.message,
                 status: 'success',

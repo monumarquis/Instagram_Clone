@@ -13,7 +13,7 @@ export const getUserBoi = (creds) => async (dispatch) => {
     });
     
     try {
-        let { data } = await axios.get('http://localhost:8001/users/getProfile', config)
+        let { data } = await axios.get('https://nem-insta-backend.onrender.com/users/getProfile', config)
         return dispatch({ type: USER_BOI_SUCCESS, payload: data })
     }
     catch ({ response: { data: { message } } }) {
@@ -32,7 +32,7 @@ export const getUserBoiWithOutReloading = (creds) => async (dispatch) => {
         }
     }
     try {
-        let { data } = await axios.get('http://localhost:8001/users/getProfile', config)
+        let { data } = await axios.get('https://nem-insta-backend.onrender.com/users/getProfile', config)
         return dispatch({ type: USER_BOI_SUCCESS, payload: data })
     }
     catch ({ response: { data: { message } } }) {

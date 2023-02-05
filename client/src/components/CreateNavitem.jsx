@@ -61,7 +61,7 @@ const CreateNavitem = ({ navSize, title, icon, active, desc }) => {
         setLoading(true)
         try {
 
-            let { data } = await axios.post("http://localhost:8001/posts", { userId, desc: caption, location, imageUrl: previewSource })
+            let { data } = await axios.post("https://nem-insta-backend.onrender.com/posts", { userId, desc: caption, location, imageUrl: previewSource })
             toast({
                 title: data.message,
                 status: 'success',

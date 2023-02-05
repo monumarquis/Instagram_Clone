@@ -41,7 +41,7 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
     const handlecomment = async () => {
         setloading(true)
         try {
-            let { data } = await axios.post("http://localhost:8001/comments", { userId, postId, comment_desc })
+            let { data } = await axios.post("https://nem-insta-backend.onrender.com/comments", { userId, postId, comment_desc })
             console.log(data)
             setloading(false)
             toast({
@@ -61,7 +61,7 @@ const SinglePost = ({ imageUrl, desc, likes, username, userImageUrl, postId }) =
 
     const handleLikes = async () => {
         try {
-            let { data } = await axios.put(`http://localhost:8001/posts/${postId}/like`, { userId })
+            let { data } = await axios.put(`https://nem-insta-backend.onrender.com/posts/${postId}/like`, { userId })
             // console.log(data)
             dispatch(getRandomPostWithoutreloading())
         }

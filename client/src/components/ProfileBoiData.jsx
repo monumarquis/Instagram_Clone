@@ -25,8 +25,8 @@ const ProfileBoiData = () => {
     const handleFollower = async () => {
         setLoading(true)
         try {
-            let { data } = isFollowed ? await axios.put(`http://localhost:8001/users/${userBoi._id}/unfollow`, { userId: auth.userId })
-                : await axios.put(`http://localhost:8001/users/${userBoi._id}/follow`, { userId: auth.userId })
+            let { data } = isFollowed ? await axios.put(`https://nem-insta-backend.onrender.com/users/${userBoi._id}/unfollow`, { userId: auth.userId })
+                : await axios.put(`https://nem-insta-backend.onrender.com/users/${userBoi._id}/follow`, { userId: auth.userId })
             console.log(data);
             dispatch(getUserBoiWithOutReloading(username))
             setLoading(false)

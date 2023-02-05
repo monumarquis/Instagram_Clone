@@ -6,7 +6,7 @@ export const getRandomPost = () => async (dispatch) =>{
         type: RANDOM_POST_REQUEST
       });
       try {
-        const { data } = await axios.get(`http://localhost:8001/posts`);
+        const { data } = await axios.get(`https://nem-insta-backend.onrender.com/posts`);
         console.log(data);
         return dispatch({
           type: RANDOM_POST_SUCCESS,
@@ -24,7 +24,7 @@ export const getRandomPost = () => async (dispatch) =>{
 }
 export const getRandomPostWithoutreloading = () => async (dispatch) =>{
       try {
-        const { data } = await axios.get(`http://localhost:8001/posts`);
+        const { data } = await axios.get(`https://nem-insta-backend.onrender.com/posts`);
         console.log(data);
         return dispatch({
           type: RANDOM_POST_SUCCESS,

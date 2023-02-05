@@ -7,7 +7,7 @@ export const LogIn = (creds) => async (dispatch) => {
   });
 
   try {
-    const { data } = await axios.post(`http://localhost:8001/users/login`, creds);
+    const { data } = await axios.post(`https://nem-insta-backend.onrender.com/users/login`, creds);
     console.log(data);
     return dispatch({
       type: LOGIN_SUCCESS,

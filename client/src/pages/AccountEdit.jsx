@@ -28,13 +28,27 @@ const AccountEdit = () => {
     const [InputBoi, setInputBoi] = useState("")
     const auth = useSelector((state) => state.auth)
     const Data = useSelector((state) => state.userBoi)
-
+    
     const handleUploadImage = async (result) => {
         // console.log(result,"trycatch")
         onClose()
         setImageUploading(true)
         try {
-            let { data } = await axios.put(`http://localhost:8001/users/${Data.userBoi._id}/profileImage`, { imageUrl: result })
+            let { data } = await axios.put(`https://nem-insta-backend.onrender.com/users/${Data.userBoi._id}/profileImage`, { imageUrl: result })
+            console.log(data)
+            dispatch(getUserBoiWithOutReloading(auth.username))
+            setImageUploading(false)
+        }
+        catch (err) {
+            setImageUploading(false)
+            console.log(err)
+        }
+    }
+    const handleDelteImage = async () => {
+        onClose()
+        setImageUploading(true)
+        try {
+            let { data } = await axios.put(`https://nem-insta-backend.onrender.com/users/${Data.userBoi._id}/profileImage/delete`)
             console.log(data)
             dispatch(getUserBoiWithOutReloading(auth.username))
             setImageUploading(false)
@@ -76,7 +90,7 @@ const AccountEdit = () => {
         if (InputName === "") realname = Data.userBoi.realname
         console.log(username, boi, realname)
         try {
-            let { data } = await axios.patch("http://localhost:8001/users/getProfile", { userId: auth.userId, realname, username, boi })
+            let { data } = await axios.patch("https://nem-insta-backend.onrender.com/users/getProfile", { userId: auth.userId, realname, username, boi })
             console.log(data)
             setDetailUploading(false)
             toast({
@@ -95,7 +109,7 @@ const AccountEdit = () => {
         dispatch(getUserBoi(auth.username))
     }, [auth.username])
 
-    if(Data.loading){
+    if (Data.loading) {
         return <LoadingSpinner Sectionheight={"50px"} loaderWidth={"50px"} loaderHeight={"50px"} />
     }
     return (
@@ -138,7 +152,7 @@ const AccountEdit = () => {
                     {/* Ist section */}
                     <Flex flexDir={"row"} w="70%" justifyContent={"space-between"} alignItems={"center"} >
                         <Flex pos="relative" flexDir={"row"} justifyContent={"flex-end"} w="23%">
-                            <Avatar src={Data.userBoi.imageUrl} borderRadius={"50%"} objectFit={"cover"} w="40px" h="40px" brightness={isImageUploading && "60%"} />
+                             <Avatar src={Data.userBoi.imageUrl} borderRadius={"50%"} objectFit={"cover"} w="40px" h="40px" brightness={isImageUploading && "60%"} />
                             {isImageUploading && <Box borderRadius={"50%"} pos="absolute" top="7px" right={"6px"} >
                                 <Spinner />
                             </Box>}
@@ -226,7 +240,7 @@ const AccountEdit = () => {
                     <ModalBody m={0} p="0" >
                         <Text fontSize="16" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="500" color={"blue.400"} onClick={handleInputClick} >Upload Photo</Text>
                         <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
-                        <Text fontSize="16" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="500" color="red.500"  >Remove Current Photo</Text>
+                        <Text fontSize="16" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="500" color="red.500" >Remove Current Photo</Text>
                         <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
                         <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="400" mb='5' onClick={onClose} >Cancel</Text>
                         <Input type="file"
