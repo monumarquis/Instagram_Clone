@@ -13,9 +13,9 @@ import SuggestionAvatar from "./SuggestionAvatar";
 import { useDispatch, useSelector } from "react-redux";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { LogOut } from "../redux/auth/auth.actions";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
-import { getUserBoi } from "../redux/userBoi/userBoi.actions";
+import { getUserBoi, getUserBoiByUsername } from "../redux/userBoi/userBoi.actions";
 import SuggestionSkeleton from "./SuggestionSkeleton";
 import { getUserSuggestion } from "../redux/suggestionUser/suggestionUser.actions";
 
@@ -23,12 +23,12 @@ const Suggestions = () => {
   const [logoutLoading, setloading] = useState(false)
   const dispatch = useDispatch()
   const { userBoi, loading } = useSelector((state) => state.userBoi)
-  const { username } = useSelector((state) => state.auth)
+  const { username ,userId } = useSelector((state) => state.auth)
   const { suggestionUser } = useSelector((state) => state.suggestionUser)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const nav = useNavigate()
   useEffect(() => {
-    dispatch(getUserBoi(username))
+    dispatch(getUserBoi(userId))
     dispatch(getUserSuggestion(userBoi._id))
   }, [])
   if (loading) {

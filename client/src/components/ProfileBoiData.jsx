@@ -3,7 +3,7 @@ import { MdPersonAddAlt1 } from "react-icons/md"
 import React, { useEffect, useState } from 'react'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserBoi, getUserBoiWithOutReloading } from '../redux/userBoi/userBoi.actions'
+import { getUserBoiByUsername, getUserBoiByUsernameWithoutReloading, getUserBoiWithOutReloading } from '../redux/userBoi/userBoi.actions'
 import {  useNavigate, useParams } from 'react-router-dom'
 import { RiSettings5Fill } from 'react-icons/ri'
 import axios from 'axios'
@@ -28,7 +28,7 @@ const ProfileBoiData = () => {
             let { data } = isFollowed ? await axios.put(`https://nem-insta-backend.onrender.com/users/${userBoi._id}/unfollow`, { userId: auth.userId })
                 : await axios.put(`https://nem-insta-backend.onrender.com/users/${userBoi._id}/follow`, { userId: auth.userId })
             console.log(data);
-            dispatch(getUserBoiWithOutReloading(username))
+            dispatch(getUserBoiByUsernameWithoutReloading(username))
             setLoading(false)
         }
         catch (err) {
@@ -43,7 +43,7 @@ const ProfileBoiData = () => {
     }
 
     useEffect(() => {
-        dispatch(getUserBoi(username))
+        dispatch(getUserBoiByUsername(username))
     }, [username])
 
     useEffect(() => {

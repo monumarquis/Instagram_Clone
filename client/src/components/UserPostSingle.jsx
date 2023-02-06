@@ -10,7 +10,7 @@ import {
     IconButton,
     Spinner,
     useDisclosure,
-    Divider, 
+    Divider,
     useToast
 } from '@chakra-ui/react'
 import { BiCommentAdd, BiDotsHorizontalRounded } from "react-icons/bi"
@@ -26,7 +26,7 @@ import { getPostComment } from '../redux/postComments/postComments.actions'
 import { useEffect } from 'react'
 import axios from 'axios'
 import LoadingSpinner from './LoadingSpinner'
-import { getUserPostWithoutReloading } from '../redux/userPost/userPost.actions'
+import { getUserPost, getUserPostWithoutReloading } from '../redux/userPost/userPost.actions'
 const UserPostSingle = ({ imageUrl, likes, postId, userImageUrl, desc, username }) => {
     const Comment = useSelector((state) => state.postComment)
     const toast = useToast()
@@ -34,6 +34,7 @@ const UserPostSingle = ({ imageUrl, likes, postId, userImageUrl, desc, username 
     const inputRef = useRef(null);
     const [liked, setliked] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen: isOpen1, onOpen: onOpen1, onClose: onClose1 } = useDisclosure()
     const [loading, setloading] = useState(false)
     const [comment_desc, setComment] = useState("")
     const { userId } = useSelector((state) => state.auth)
@@ -43,6 +44,23 @@ const UserPostSingle = ({ imageUrl, likes, postId, userImageUrl, desc, username 
     useEffect(() => {
         setliked(likes.some((el) => el._id === userId))
     }, [likes, userId])
+
+    const handledelete = async () => {
+        onClose1()
+        try {
+            let { data } = await axios.delete(`http://localhost:8001/posts/${postId}`)
+            toast({
+                title: data.message,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+            })
+            dispatch(getUserPost(username))
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 
     const handlecomment = async () => {
         setloading(true)
@@ -111,7 +129,7 @@ const UserPostSingle = ({ imageUrl, likes, postId, userImageUrl, desc, username 
                                                 </Box>
                                                 <Text fontWeight={"600"} >{username}</Text>
                                             </HStack>
-                                            <IconButton fontSize="30px" mr="2" background={"none"} _hover={{ background: "none" }} color="black" icon={<BiDotsHorizontalRounded />} />
+                                            <IconButton fontSize="30px" mr="2" background={"none"} _hover={{ background: "none" }} onClick={onOpen1} color="black" icon={<BiDotsHorizontalRounded />} />
                                         </Flex>
                                         <Divider w="100%" mt="3" />
                                         <Flex flexDir="column" className="scroll-hide" w="100%" maxH="250px" border="1px solid red" >
@@ -153,6 +171,34 @@ const UserPostSingle = ({ imageUrl, likes, postId, userImageUrl, desc, username 
                             </ModalBody>
                             <ModalFooter>
                             </ModalFooter>
+                        </ModalContent>
+                    </Modal>
+                    <Modal
+                        isOpen={isOpen1}
+                        onClose={onClose1}
+                        closeOnOverlayClick={true}
+                    >
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalBody m={0} p="0" >
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="500" color={"red.500"} onClick={handledelete}  >Delete </Text>
+                                <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="500" color="red.500" >Unfollow</Text>
+                                <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="400"  >Add to favourites</Text>
+                                <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="400" >Go to post</Text>
+                                <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="400" >Share to...</Text>
+                                <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="400" >Copy link</Text>
+                                <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="400" >Embed</Text>
+                                <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="400" >About this account</Text>
+                                <Divider orientation='horizontal' mt='3' borderWidth={"0.5"} borderColor={'#a19f9f'} w="100%" />
+                                <Text fontSize="14" cursor={"pointer"} mt="3" textAlign={"center"} fontWeight="400" mb='5' onClick={onClose1} >Cancel</Text>
+                            </ModalBody>
                         </ModalContent>
                     </Modal>
                 </Box>

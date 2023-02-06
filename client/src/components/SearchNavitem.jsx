@@ -18,18 +18,45 @@ import {
     InputRightElement,
     IconButton,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import NavHoverItem from "./NavHoverItem";
 import { BsSearch } from "react-icons/bs";
 import { RxCrossCircled } from "react-icons/rx";
+import axios from "axios";
 
+const debounce = (func, wait) => {
+    let timeout;
+    return function (...args) {
+        const context = this;
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            timeout = null;
+            func.apply(context, args);
+        }, wait);
+    };
+}
 const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [hover, sethover] = useState(false);
     const [iconsearch, seticonserach] = useState(true);
     const [searchUser, setSearchUser] = useState("");
+    const [searchUserList, setSearchUserList] = useState([]);
+
     const width = navSize === "small" ? "none" : "flex";
+
+    const onChange = async (value) => {
+        console.log(value, "call api")
+        try {
+            let { data } = await axios.get(`http://localhost:8001/users/Search/${value}`)
+            setSearchUserList(data)
+        }
+        catch (err) {
+            console.log(err)
+            setSearchUserList([])
+        }
+    }
+    const debounceOnChange = useCallback(debounce(onChange, 1000), []);
     const handleSerach = () => {
         onOpen();
         setNavSize("small");
@@ -40,8 +67,8 @@ const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
         setNavSize("large");
         setSearchUser("")
     };
-    console.log(searchUser);
-    console.log(iconsearch);
+    console.log(searchUserList, "listuser");
+    console.log(searchUser,"input");
     return (
         <Flex
             mt="30"
@@ -132,16 +159,23 @@ const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
                             <Input
                                 variant="outline"
                                 type="text"
-                                value={searchUser}
-                                onChange={({ target: { value } }) => setSearchUser(value)}
+                                value={searchUser || ""}
+                                onChange={({ target: { value } }) => {
+                                    setSearchUser(value)
+                                    debounceOnChange(value)
+                                }}
                                 placeholder="Search"
                                 size="md"
                                 backgroundColor={"#d2d6d3"}
                                 onClick={() => seticonserach(false)}
+                                spellCheck="false"
                             />
                             {searchUser !== "" && (
                                 <InputRightElement>
-                                    <IconButton onClick={() => setSearchUser("")} background={"none"} _hover={{ background: "none", }} color="gray.500" icon={<RxCrossCircled />} />
+                                    <IconButton onClick={() => {
+                                        setSearchUser("")
+                                        debounceOnChange("")
+                                    }} background={"none"} _hover={{ background: "none", }} color="gray.500" icon={<RxCrossCircled />} />
                                 </InputRightElement>
                             )}
                         </InputGroup>

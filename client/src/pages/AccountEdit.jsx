@@ -36,7 +36,7 @@ const AccountEdit = () => {
         try {
             let { data } = await axios.put(`https://nem-insta-backend.onrender.com/users/${Data.userBoi._id}/profileImage`, { imageUrl: result })
             console.log(data)
-            dispatch(getUserBoiWithOutReloading(auth.username))
+            dispatch(getUserBoiWithOutReloading(auth.userId))
             setImageUploading(false)
         }
         catch (err) {
@@ -99,6 +99,7 @@ const AccountEdit = () => {
                 duration: 2000,
                 isClosable: true,
             })
+            dispatch(getUserBoiWithOutReloading(auth.userId))
         } catch (err) {
             setDetailUploading(false)
             console.log(err)
@@ -106,7 +107,7 @@ const AccountEdit = () => {
     }
 
     useEffect(() => {
-        dispatch(getUserBoi(auth.username))
+        dispatch(getUserBoi(auth.userId))
     }, [auth.username])
 
     if (Data.loading) {
