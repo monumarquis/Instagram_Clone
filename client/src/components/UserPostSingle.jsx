@@ -48,7 +48,7 @@ const UserPostSingle = ({ imageUrl, likes, postId, userImageUrl, desc, username 
     const handledelete = async () => {
         onClose1()
         try {
-            let { data } = await axios.delete(`http://localhost:8001/posts/${postId}`)
+            let { data } = await axios.delete(`https://nem-insta-backend.onrender.com/posts/${postId}`)
             toast({
                 title: data.message,
                 status: 'success',

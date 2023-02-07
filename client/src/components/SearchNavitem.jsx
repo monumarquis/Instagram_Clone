@@ -24,6 +24,9 @@ import NavHoverItem from "./NavHoverItem";
 import { BsSearch } from "react-icons/bs";
 import { RxCrossCircled } from "react-icons/rx";
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
+import SearchUserAvatar from "./SearchUserAvatar";
+import SuggestionAvatar from "./SuggestionAvatar";
 
 const debounce = (func, wait) => {
     let timeout;
@@ -39,6 +42,7 @@ const debounce = (func, wait) => {
 const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [hover, sethover] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [iconsearch, seticonserach] = useState(true);
     const [searchUser, setSearchUser] = useState("");
     const [searchUserList, setSearchUserList] = useState([]);
@@ -47,13 +51,16 @@ const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
 
     const onChange = async (value) => {
         console.log(value, "call api")
+        setLoading(true)
         try {
-            let { data } = await axios.get(`http://localhost:8001/users/Search/${value}`)
+            let { data } = await axios.get(`https://nem-insta-backend.onrender.com/users/Search/${value}`)
             setSearchUserList(data)
+            setLoading(false)
         }
         catch (err) {
             console.log(err)
             setSearchUserList([])
+            setLoading(false)
         }
     }
     const debounceOnChange = useCallback(debounce(onChange, 1000), []);
@@ -68,7 +75,7 @@ const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
         setSearchUser("")
     };
     console.log(searchUserList, "listuser");
-    console.log(searchUser,"input");
+    console.log(searchUser, "input");
     return (
         <Flex
             mt="30"
@@ -141,7 +148,7 @@ const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
             <Drawer
                 onClose={handleClose}
                 isOpen={isOpen}
-                size={"md"}
+                size={"sm"}
                 placement="left"
             >
                 <DrawerOverlay />
@@ -179,6 +186,17 @@ const SearchNavitem = ({ navSize, title, icon, active, desc, setNavSize }) => {
                                 </InputRightElement>
                             )}
                         </InputGroup>
+                        {/* Show result user */}
+                        <Flex my="5" flexDir={"column"} w="90%" m="auto" alignItems={"center"} justifyContent={"center"}  >
+                            {loading && <LoadingSpinner Sectionheight={"50px"} loaderWidth={"50px"} loaderHeight={"50px"} />}
+                            {
+                                searchUserList.map((el) => {
+
+                                    return <SearchUserAvatar onClose={onClose} setSearchUser={setSearchUser} debounceOnChange={debounceOnChange} key={el._id} username={el.username} imageUrl={el.imageUrl} />
+                                })
+                            }
+                        </Flex>
+
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
