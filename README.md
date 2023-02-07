@@ -84,13 +84,20 @@ This project is just for educational purpose.
 
 <table>
   <tr>
-    <td width="100%"><img src="https://i.ibb.co/X3qDs4f/homepage.png"  alt="home" /></td>
+    <td width="50%"><img src="https://i.ibb.co/S7dvzKx/login.png"  alt="Login" /></td>
+    <td width="50%" ><img  src="https://i.ibb.co/mqx2VzK/sign-up.png"  alt="signup" /></td>
   </tr>
    <tr>
-    <td width="100%" ><img  src="https://i.ibb.co/rv8hQFj/trending-page.png"  alt="coupons" /></td>
+     <td width="50%"><img src="https://i.ibb.co/FWhjzmF/HomePage.png"  alt="Home" /></td>
+      <td width="50%"><img src="https://i.ibb.co/FWhjzmF/HomePage.png"  alt="Home" /></td>
   </tr>
   <tr>
-    <td width="100%"><img src="https://i.ibb.co/wg8vr7q/video-page.png"  alt="trending" /></td>
+        <td width="50%"><img src="https://i.ibb.co/cbWSSK2/Own-Profile.png"  alt="ownprofilw" /></td>
+      <td width="50%"><img src="https://i.ibb.co/PrbHtqn/other-s-Profile.png"  alt="othersProfile" /></td>
+  </tr>
+    <tr>
+        <td width="50%"><img src="https://i.ibb.co/ChwPR40/Likes-comment.png"  alt="LikesComment" /></td>
+      <td width="50%"><img src="https://i.ibb.co/dcb2KNW/Edit-page.png"  alt="EditPge" /></td>
   </tr>
 </table>
 
