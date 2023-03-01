@@ -1,0 +1,19 @@
+<--- Routes --->
+
+    USER
+user ---> user/login
+user ---> user/signup
+user ---> user/feed
+user ---> user/followers
+user ---> user/following
+
+
+   All POST
+post --->  post  
+
+   Comment of Individual Post ---> one-to-one Relationship
+comment - comment 
+
+
+
+
