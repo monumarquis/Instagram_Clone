@@ -45,9 +45,9 @@ on others' pics and follow-unfollow as well </h3>
 <<<<<<< HEAD
 <h3>Note:- Demo link will not be open in chrome browser due to some issue but it can be see in any browser except chrome.  I make sure that you would be glad to see it live</h3> 
 <h3 align="center"><a href=""><strong>Demo Video »</strong></a></h3>
-=======
+======= htt #AWS Deployrp://16.170.40.218:8001/ #AWS Deployed Linked on ec2 Instance
 <h3>Note:- Demo link will not be open in chrome browser due to some issue but it can be see in any browser except chrome.  I make sure that you would be glad to see it live</h3>
->>>>>>> d8bd0f93b56d2fa1dffe2252aab15b601fb53b28
+<!-- >>>>>>> d8bd0f93b56d2fa1dffe2252aab15b601fb53b28 -->
 <p align="center">
   <br />&#10023;
   <a href="#Demo">View Demo</a> &#10023;
